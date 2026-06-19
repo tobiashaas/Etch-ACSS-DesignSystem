@@ -61,11 +61,18 @@ for static structure/layout. (Etch native components carry their own a11y/JS.)
    `data-etch-element="container"`.
 7. Build on ACSS primitives (`.btn--*`, `.section--*`, `.bg--*`, `.text--*`,
    `.content-width`, `.grid--*`, `--space-*`, `--text-*`) — extend, don't duplicate.
+8. **Free choice within the system** — you do NOT have to use every palette
+   colour, shade or token. Use only what a design needs and leave the rest
+   unused (e.g. a design may use just `--primary` + neutrals and ignore
+   `--secondary`/`--tertiary`/`--accent`). The single hard requirement is that
+   you build *with the system* — ACSS tokens + our components, never hard-coded
+   colours/sizes. Picking and omitting tokens is expected; bypassing them is not.
 
 ## Color scheme
 ACSS resolves text/heading/button colour contextually from the section
 background utility (`.bg--ultra-light` … `.bg--ultra-dark`). Same markup adapts.
 
 ## When building new pages here
-Author as `.dc.html`. In `<helmet>`, link the five stylesheets in the order
-above, then write semantic markup using ACSS utilities + our component classes.
+Author as `.dc.html`. In `<helmet>`, link the six stylesheets in the order
+above (etch-reset → etch-defaults → automatic → fonts → components → brand),
+then write semantic markup using ACSS utilities + our component classes.

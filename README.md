@@ -58,6 +58,7 @@ Unlayered CSS always beats `@layer`-ed CSS, so ACSS and our components override 
 5. **100% local (DSGVO)** — fonts, icons, JS all self-hosted. No CDN / Google Fonts at runtime.
 6. **Etch attributes** — `<section data-etch-element="section">`, inner wrapper `data-etch-element="container"`.
 7. **Extend ACSS, don't duplicate** — build on `.btn--*`, `.section--*`, `.bg--*`, `.text--*`, `.content-width`, `.grid--*`, `--space-*`, `--text-*`.
+8. **Free choice within the system** — you don't have to use every palette colour, shade or token. Use only what a design needs and leave the rest unused (a layout may use just `--primary` + neutrals and skip `--secondary`/`--tertiary`/`--accent`). The one requirement is that you build *with* the system — ACSS tokens + our components, never hard-coded values. Picking and omitting tokens is expected; bypassing them is not.
 
 ---
 
