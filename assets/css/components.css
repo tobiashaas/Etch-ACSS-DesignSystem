@@ -521,7 +521,6 @@
   }
 
   /* Two-column split (default at wide widths) */
-  &--split .hero__inner { grid-template-columns: var(--grid-1-1, 1fr 1fr); }
   &--split .hero__inner { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
 
   /* Centred single column */

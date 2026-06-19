@@ -109,12 +109,12 @@
     <div class="step">
       <div class="step__n">3</div>
       <div class="step__body">
-        <h2 class="step__title">Set website width &amp; breakpoints</h2>
-        <p>Under <span class="code">Automatic.css → Dashboard</span> set the width values. <strong>Enter everything in px</strong> — ACSS converts to rem in the generated stylesheet. This system uses:</p>
-        <div class="codeblock">Content Width   Min 600px  /  Max 1200px      → --content-width: 75rem
-Gutter          Min 16px   /  Max 80px        → 1rem → 5rem  (fluid)
-Fluid viewport  Min 360px  /  Max 1200px      → clamp() scaling range</div>
-        <p>You type px; ACSS stores rem (1200px ÷ 16 = 75rem, 16px = 1rem, 80px = 5rem). The fluid viewport range (360 → 1200px) drives every <span class="code">clamp()</span> in the type &amp; spacing scales — set it here so the values below resolve correctly.</p>
+        <h2 class="step__title">Set website width</h2>
+        <p>ACSS&nbsp;v4 is <strong>breakpoint-free</strong> — there is no breakpoints panel. Under <span class="code">Layout → Website Dimensions</span> set just two fields. <strong>Enter everything in px</strong> — ACSS converts to rem in the generated stylesheet. This system uses:</p>
+        <div class="codeblock">Content Width   1200px      → --content-width: 75rem   (max line length)
+Minimum Width    360px      → bottom of the fluid clamp() range
+Gutter          16px / 80px → 1rem → 5rem  (fluid)</div>
+        <p>You type px; ACSS stores rem (1200px ÷ 16 = 75rem, 16px = 1rem, 80px = 5rem). v4 derives the fluid <span class="code">clamp()</span> range for the type &amp; spacing scales from these two values — <strong>Minimum Width (360)</strong> and <strong>Content Width (1200)</strong> — so set them here and the values below resolve correctly.</p>
       </div>
     </div>
 
@@ -122,9 +122,9 @@ Fluid viewport  Min 360px  /  Max 1200px      → clamp() scaling range</div>
       <div class="step__n">4</div>
       <div class="step__body">
         <h2 class="step__title">Configure the colour palette</h2>
-        <p>In <span class="code">Colors → Palette</span> enter the <strong>base colour</strong> (HEX) for each palette. ACSS reads its <strong>hue</strong> from that colour and generates the shades — so for shades you only ever set <strong>L</strong>(ightness) and <strong>C</strong>(hroma); hue is inherited.</p>
+        <p>In the <span class="code">Palette</span> panel enter the <strong>base colour</strong> (HEX) for each palette. The six brand palettes live under <span class="code">Palette → Main Colors</span>, the four status colours under <span class="code">Palette → Semantic Colors</span>. ACSS reads each palette's <strong>hue</strong> from its base colour and generates the shades — so for shades you only ever set <strong>L</strong>(ightness) and <strong>C</strong>(hroma); hue is inherited.</p>
 
-        <p style="margin-block-start:var(--space-s)"><strong>① Base colours — enter as HEX</strong></p>
+        <p style="margin-block-start:var(--space-s)"><strong>① Base colours — enter as HEX</strong> (Main Colors, then Semantic Colors)</p>
         <table class="vt">
           <thead><tr><th>Palette</th><th>HEX</th><th>OKLCH (L · C · H)</th></tr></thead>
           <tbody>
@@ -134,6 +134,7 @@ Fluid viewport  Min 360px  /  Max 1200px      → clamp() scaling range</div>
             <tr><td><span class="swatch-mini" style="background:var(--accent)"></span>Accent</td><td>#BCC8A2</td><td>0.814&nbsp;·&nbsp;0.053&nbsp;·&nbsp;122</td></tr>
             <tr><td><span class="swatch-mini" style="background:var(--base)"></span>Base</td><td>#1A2320</td><td>0.246&nbsp;·&nbsp;0.014&nbsp;·&nbsp;172.8</td></tr>
             <tr><td><span class="swatch-mini" style="background:var(--neutral)"></span>Neutral</td><td>#6B7280</td><td>0.551&nbsp;·&nbsp;0.023&nbsp;·&nbsp;264.4</td></tr>
+            <tr><td colspan="3" style="font-weight:600; color:var(--heading-color); padding-block-start:.6em">↳ Palette → Semantic Colors</td></tr>
             <tr><td><span class="swatch-mini" style="background:var(--success)"></span>Success</td><td>#26A746</td><td>0.640&nbsp;·&nbsp;0.175&nbsp;·&nbsp;147</td></tr>
             <tr><td><span class="swatch-mini" style="background:var(--warning)"></span>Warning</td><td>#FFC108</td><td>0.844&nbsp;·&nbsp;0.172&nbsp;·&nbsp;85</td></tr>
             <tr><td><span class="swatch-mini" style="background:var(--danger)"></span>Danger</td><td>#DC3546</td><td>0.592&nbsp;·&nbsp;0.202&nbsp;·&nbsp;21</td></tr>
@@ -286,7 +287,7 @@ Fluid viewport  Min 360px  /  Max 1200px      → clamp() scaling range</div>
           <div class="palcard">
             <div class="palcard__h">Text — override (px)</div>
             <table class="vt"><thead><tr><th>Size</th><th class="num">Mobile</th><th class="num">Desktop</th></tr></thead><tbody>
-              <tr><td>XXL</td><td class="num">27.6</td><td class="num">29.4</td></tr>
+              <tr><td>2XL <em>(var <span class="code">--text-xxl</span>)</em></td><td class="num">27.6</td><td class="num">29.4</td></tr>
               <tr><td>XL</td><td class="num">23</td><td class="num">24.5</td></tr>
               <tr><td>L</td><td class="num">19.2</td><td class="num">20.4</td></tr>
               <tr><td>M <em>(base)</em></td><td class="num">16</td><td class="num">17</td></tr>
@@ -305,7 +306,7 @@ Fluid viewport  Min 360px  /  Max 1200px      → clamp() scaling range</div>
       <div class="step__n">6</div>
       <div class="step__body">
         <h2 class="step__title">Spacing &amp; section rhythm</h2>
-        <p>Confirm the <span class="code">--space-*</span> and <span class="code">--section-space-*</span> scales in <span class="code">Spacing</span>. These power the <span class="code">.section--*</span> padding utilities and all component gaps.</p>
+        <p>Under <span class="code">Spacing</span> set <strong>Base Spacing</strong> and the <strong>Base Scale</strong> (mobile / desktop) — ACSS generates the whole <span class="code">--space-*</span> and <span class="code">--section-space-*</span> ladder from those, fluidly between Minimum Width and Content Width. These power the <span class="code">.section--*</span> padding utilities and all component gaps.</p>
       </div>
     </div>
 
@@ -313,7 +314,10 @@ Fluid viewport  Min 360px  /  Max 1200px      → clamp() scaling range</div>
       <div class="step__n">7</div>
       <div class="step__body">
         <h2 class="step__title">Colour scheme (light / dark)</h2>
-        <p>ACSS resolves text, heading and button colours <em>contextually</em> from the background utility on a section (<span class="code">.bg--ultra-light</span> … <span class="code">.bg--ultra-dark</span>). Define both light and dark contexts in the dashboard so the same markup adapts to either scheme.</p>
+        <p>Two complementary v4 mechanisms:</p>
+        <p style="margin-block-start:var(--space-s)"><strong>① Contextual backgrounds</strong> — ACSS resolves text, heading, link and button colours <em>contextually</em> from the background utility on a section (<span class="code">.bg--ultra-light</span> … <span class="code">.bg--ultra-dark</span>), via Color Assignments → Light / Dark Relationships. Same markup adapts either way.</p>
+        <p style="margin-block-start:var(--space-s)"><strong>② System light/dark scheme</strong> — under <span class="code">Color Scheme</span> turn on <strong>Enable Color Scheme Support</strong> (the palette is then emitted with <span class="code">light-dark()</span> and shades auto-invert), pick the <strong>Website Scheme</strong> (<span class="code">light</span> / <span class="code">dark</span> / <span class="code">light dark</span> / <span class="code">normal</span>), and optionally set per-colour Main/Hover dark overrides. Use <span class="code">.scheme--light</span> / <span class="code">.scheme--dark</span> to force a scheme on any subtree, or <strong>Force Scheme</strong> globally. <em>(This reference build ships single-scheme <span class="code">light</span>; enable the above per project for true dark mode.)</em></p>
+        <p style="margin-block-start:var(--space-s)"><strong>③ Optional — Additional Styling → Effects</strong> sets global transition/easing, sticky behaviour and <strong>selection styling</strong> (the text-highlight colour, which can follow the colour scheme). Safe to leave at defaults.</p>
       </div>
     </div>
 

@@ -131,7 +131,7 @@
         <div class="nav__row dis"><span class="nav__ic">▢</span><div><div class="nav__t">Cards</div><div class="nav__s">Configured in framework</div></div></div>
         <div class="nav__row dis"><span class="nav__ic">◳</span><div><div class="nav__t">Borders &amp; Shadows</div><div class="nav__s">Configured in framework</div></div></div>
       </div>
-      <p class="note">Values below are derived from this design system's <span style="font-family:ui-monospace,monospace">automatic.css</span>.</p>
+      <p class="note">Values below are derived from this design system's <span style="font-family:ui-monospace,monospace">automatic.css</span> — i.e. the <strong>base ACSS palette</strong> you enter in WordPress. The styleguide preview also loads <span style="font-family:ui-monospace,monospace">brand.css</span> last, a replaceable <strong>demo brand layer</strong> (currently violet) that re-themes via <span style="font-family:ui-monospace,monospace">:root</span> tokens — so the live preview can differ from the blue base shown here. On a real project, set the brand palette in this dashboard (regenerating automatic.css) and/or via brand.css.</p>
     </div>
 
     <!-- ================= COLORS ================= -->
@@ -182,13 +182,13 @@
       </div>
 
       <div class="p__pills" data-pills="headings"><button data-level="all" class="on">All</button><button data-level="h1">H1</button><button data-level="h2">H2</button><button data-level="h3">H3</button><button data-level="h4">H4</button><button data-level="h5">H5</button><button data-level="h6">H6</button></div>
-      <div class="p__pills" data-pills="text" hidden><button data-level="all" class="on">All</button><button data-level="xxl">XXL</button><button data-level="xl">XL</button><button data-level="l">L</button><button data-level="m">M</button><button data-level="s">S</button><button data-level="xs">XS</button></div>
+      <div class="p__pills" data-pills="text" hidden><button data-level="all" class="on">All</button><button data-level="xxl">2XL</button><button data-level="xl">XL</button><button data-level="l">L</button><button data-level="m">M</button><button data-level="s">S</button><button data-level="xs">XS</button></div>
 
       <div data-group="all">
         <div class="f"><div class="f__l">Font Family</div><div class="i"><span data-role="family">Clash Grotesk</span><span class="cv">▾</span></div></div>
         <div class="f"><div class="f__l"><span data-role="colorLabel">Heading Color</span></div><div class="i"><span style="display:flex;align-items:center;gap:8px"><span class="sw" data-role="colorSwatch" style="background:var(--text-dark)"></span><span data-role="colorVal">--text-dark</span></span></div></div>
         <div class="f"><div class="f__l">Line Height</div><div class="i" data-role="lh">calc(4px + 2ex)</div></div>
-        <div class="f"><div class="f__l">Font Weight</div><div class="i"><span data-role="weight">500</span><span class="cv">▾</span></div></div>
+        <div class="f"><div class="f__l">Font Weight</div><div class="i"><span data-role="weight">600</span><span class="cv">▾</span></div></div>
         <div class="f"><div class="f__l"><span data-role="extraLabel">Letter Spacing</span></div><div class="i" data-role="extraVal">0</div></div>
         <div class="f" style="margin-block-end:0"><div class="f__l">Text Wrap</div><div class="i"><span>Pretty</span><span class="cv">▾</span></div></div>
       </div>
@@ -240,7 +240,7 @@ class Component extends DCLogic {
     const TITLES = { home: ["▦", "Dashboard"], colors: ["◐", "Colors"], typography: ["Aa", "Typography"], spacing: ["⇿", "Spacing"] };
 
     const DATA = {
-      headings: { baseLabel: "Base Heading Size", base: [20, 24], scale: [1.25, 1.25], family: "Clash Grotesk", colorLabel: "Heading Color", colorVal: "--text-dark", colorSwatch: "var(--text-dark)", lh: "calc(4px + 2ex)", weight: "500", extraLabel: "Letter Spacing", extraVal: "0", sizes: { h1: [39.1, 46.9], h2: [31.3, 37.5], h3: [25, 30], h4: [20, 24], h5: [14, 15], h6: [13, 14] } },
+      headings: { baseLabel: "Base Heading Size", base: [20, 24], scale: [1.25, 1.25], family: "Clash Grotesk", colorLabel: "Heading Color", colorVal: "--text-dark", colorSwatch: "var(--text-dark)", lh: "calc(4px + 2ex)", weight: "600", extraLabel: "Letter Spacing", extraVal: "0", sizes: { h1: [39.1, 46.9], h2: [31.3, 37.5], h3: [25, 30], h4: [20, 24], h5: [14, 15], h6: [13, 14] } },
       text: { baseLabel: "Base Text Size", base: [16, 17], scale: [1.2, 1.2], family: "System stack", colorLabel: "Default Text Color", colorVal: "--text-dark-muted", colorSwatch: "var(--text-dark-muted)", lh: "calc(6px + 2ex)", weight: "400", extraLabel: "Max-Width", extraVal: "100%", sizes: { xxl: [27.6, 29.4], xl: [23, 24.5], l: [19.2, 20.4], m: [16, 17], s: [14, 15], xs: [13, 14] } },
     };
     let tab = "headings";
