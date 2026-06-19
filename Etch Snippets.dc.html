@@ -1,0 +1,297 @@
+<!-- @dsCard group="Components" title="Etch Snippets" subtitle="Copy-paste blocks with data-etch-element" -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="assets/css/etch-reset.css" />
+  <link rel="stylesheet" href="assets/css/etch-defaults.css" />
+  <link rel="stylesheet" href="assets/css/automatic.css" />
+  <link rel="stylesheet" href="assets/css/fonts.css" />
+  <link rel="stylesheet" href="assets/css/components.css" />
+  <style>
+    body { background: var(--body-bg-color); color: var(--text-color); }
+    .sg-topbar { position: sticky; inset-block-start: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; gap: var(--space-m); padding-block: var(--space-s); padding-inline: var(--gutter); background: color-mix(in srgb, var(--body-bg-color) 86%, transparent); backdrop-filter: blur(10px); border-block-end: 1px solid color-mix(in srgb, var(--neutral) 18%, transparent); }
+    .sg-topbar__brand { display: inline-flex; align-items: center; gap: .6rem; font-family: var(--heading-font-family); font-weight: 600; font-size: var(--text-l); color: var(--heading-color); }
+    .sg-topbar__mark { display: grid; place-items: center; inline-size: 2rem; block-size: 2rem; border-radius: 7px; background: var(--primary); color: #fff; font-size: .9rem; }
+    .sg-topbar__links { display: flex; gap: var(--space-s); flex-wrap: wrap; }
+    .sg-topbar__link { font-size: var(--text-s); color: var(--text-color); text-decoration: none; padding-block: .4em; padding-inline: .8em; border-radius: var(--radius); transition: var(--transition); }
+    .sg-topbar__link:hover { background: color-mix(in srgb, var(--neutral) 12%, transparent); color: var(--heading-color); }
+    .sg-topbar__link--active { background: var(--primary); color: #fff; }
+
+    .lib { inline-size: 100%; max-inline-size: 64rem; margin-inline: auto; padding-inline: var(--gutter); padding-block: var(--section-space-s); }
+    .lib__hero { margin-block-end: var(--space-xl); }
+    .lib__kicker { font-family: var(--heading-font-family); font-size: var(--text-s); letter-spacing: .12em; color: var(--primary); }
+    .lib__title { font-size: var(--h1); margin-block: .2em .3em; }
+    .lib__lede { font-size: var(--text-l); color: var(--text-color); max-inline-size: 52ch; }
+
+    .snip { margin-block-end: var(--space-xl); border: 1px solid color-mix(in srgb, var(--neutral) 16%, transparent); border-radius: var(--radius); overflow: hidden; background: var(--bg-ultra-light); }
+    .snip__bar { display: flex; align-items: center; justify-content: space-between; gap: var(--space-s); padding: var(--space-s) var(--space-m); border-block-end: 1px solid color-mix(in srgb, var(--neutral) 14%, transparent); }
+    .snip__name { font-family: var(--heading-font-family); font-weight: 600; color: var(--heading-color); }
+    .snip__copy { display: inline-flex; align-items: center; gap: .4em; font-size: var(--text-xs); font-weight: 600; color: var(--primary); padding: .45em .9em; border-radius: var(--radius); border: 1.5px solid var(--primary); transition: var(--transition); }
+    .snip__copy:hover { background: var(--primary); color: #fff; }
+    .snip__copy--done { background: var(--success); border-color: var(--success); color: #fff; }
+    .snip__preview { padding: var(--space-l); background: color-mix(in srgb, var(--white) 50%, transparent); }
+    .snip__code { margin: 0; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .74rem; line-height: 1.65; color: var(--base); background: var(--base-ultra-light); padding: var(--space-m); overflow-x: auto; white-space: pre; border-block-start: 1px solid color-mix(in srgb, var(--neutral) 14%, transparent); }
+  </style>
+</helmet>
+
+<div>
+  <header class="sg-topbar">
+    <span class="sg-topbar__brand"><span class="sg-topbar__mark">◆</span> Design System</span>
+    <nav class="sg-topbar__links">
+      <a class="sg-topbar__link" href="Overview.dc.html">Overview</a>
+      <a class="sg-topbar__link" href="Design System.dc.html">Styleguide</a>
+      <a class="sg-topbar__link" href="ACSS Setup Guide.dc.html">ACSS Setup</a>
+      <a class="sg-topbar__link" href="ACSS Dashboard Values.dc.html">Dashboard</a>
+      <a class="sg-topbar__link sg-topbar__link--active" href="Etch Snippets.dc.html">Etch Snippets</a>
+    </nav>
+  </header>
+
+  <section class="lib" data-screen-label="Etch Snippets">
+    <div class="lib__hero">
+      <span class="lib__kicker">COPY · PASTE · SHIP</span>
+      <h1 class="lib__title">Etch snippet library</h1>
+      <p class="lib__lede">Production-ready blocks. Every section carries <span style="font-family:ui-monospace,monospace;font-size:.85em;color:var(--primary-dark)">data-etch-element="section"</span> and inner wrappers <span style="font-family:ui-monospace,monospace;font-size:.85em;color:var(--primary-dark)">data-etch-element="container"</span> so Etch applies its defaults on paste.</p>
+    </div>
+
+    <!-- 1 · SECTION SCAFFOLD -->
+    <div class="snip" data-snip>
+      <div class="snip__bar">
+        <span class="snip__name">01 · Section + Container scaffold</span>
+        <button class="snip__copy" data-copy>⧉ Copy</button>
+      </div>
+      <div class="snip__preview">
+        <section class="section--m bg--ultra-light" data-etch-element="section" style="border-radius:var(--radius)">
+          <div class="content-width" data-etch-element="container">
+            <div class="section-header">
+              <span class="eyebrow">Eyebrow</span>
+              <h2 class="section-header__title">Section title goes here</h2>
+              <p class="section-header__text">A short supporting sentence that sets up the content below.</p>
+            </div>
+          </div>
+        </section>
+      </div>
+      <pre class="snip__code"><code>&lt;section class="section--m bg--ultra-light" data-etch-element="section"&gt;
+  &lt;div class="content-width" data-etch-element="container"&gt;
+    &lt;div class="section-header"&gt;
+      &lt;span class="eyebrow"&gt;Eyebrow&lt;/span&gt;
+      &lt;h2 class="section-header__title"&gt;Section title goes here&lt;/h2&gt;
+      &lt;p class="section-header__text"&gt;A short supporting sentence.&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+    </div>
+
+    <!-- 2 · HERO SPLIT -->
+    <div class="snip" data-snip>
+      <div class="snip__bar">
+        <span class="snip__name">02 · Hero — split</span>
+        <button class="snip__copy" data-copy>⧉ Copy</button>
+      </div>
+      <div class="snip__preview">
+        <section class="section--m bg--ultra-light hero hero--split" data-etch-element="section" style="border-radius:var(--radius)">
+          <div class="hero__inner" data-etch-element="container">
+            <div class="hero__content">
+              <span class="eyebrow">New</span>
+              <h1 class="hero__title">A headline that sells the idea</h1>
+              <p class="hero__text">One or two sentences of supporting copy that explain the value.</p>
+              <div class="hero__actions"><a class="btn--primary" href="#">Get started</a><a class="btn--primary btn--outline" href="#">Learn more</a></div>
+            </div>
+            <div class="hero__media"><img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=720&q=70" alt="" /></div>
+          </div>
+        </section>
+      </div>
+      <pre class="snip__code"><code>&lt;section class="section--m hero hero--split" data-etch-element="section"&gt;
+  &lt;div class="hero__inner" data-etch-element="container"&gt;
+    &lt;div class="hero__content"&gt;
+      &lt;span class="eyebrow"&gt;New&lt;/span&gt;
+      &lt;h1 class="hero__title"&gt;A headline that sells the idea&lt;/h1&gt;
+      &lt;p class="hero__text"&gt;Supporting copy that explains the value.&lt;/p&gt;
+      &lt;div class="hero__actions"&gt;
+        &lt;a class="btn--primary" href="#"&gt;Get started&lt;/a&gt;
+        &lt;a class="btn--primary btn--outline" href="#"&gt;Learn more&lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="hero__media"&gt;&lt;img src="..." alt="" /&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+    </div>
+
+    <!-- 3 · FEATURE GRID -->
+    <div class="snip" data-snip>
+      <div class="snip__bar">
+        <span class="snip__name">03 · Feature card grid</span>
+        <button class="snip__copy" data-copy>⧉ Copy</button>
+      </div>
+      <div class="snip__preview">
+        <section class="section--m bg--ultra-light" data-etch-element="section" style="border-radius:var(--radius)">
+          <div class="content-width grid--auto-3" data-etch-element="container">
+            <article class="card card--feature"><span class="card__icon">▣</span><h3 class="card__title">Feature one</h3><p class="card__text">Short description of the benefit.</p></article>
+            <article class="card card--feature"><span class="card__icon">◇</span><h3 class="card__title">Feature two</h3><p class="card__text">Short description of the benefit.</p></article>
+            <article class="card card--feature"><span class="card__icon">⬡</span><h3 class="card__title">Feature three</h3><p class="card__text">Short description of the benefit.</p></article>
+          </div>
+        </section>
+      </div>
+      <pre class="snip__code"><code>&lt;section class="section--m" data-etch-element="section"&gt;
+  &lt;div class="content-width grid--auto-3" data-etch-element="container"&gt;
+    &lt;article class="card card--feature"&gt;
+      &lt;span class="card__icon"&gt;▣&lt;/span&gt;
+      &lt;h3 class="card__title"&gt;Feature one&lt;/h3&gt;
+      &lt;p class="card__text"&gt;Short description of the benefit.&lt;/p&gt;
+    &lt;/article&gt;
+    &lt;!-- repeat .card --&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+    </div>
+
+    <!-- 4 · CTA BAND -->
+    <div class="snip" data-snip>
+      <div class="snip__bar">
+        <span class="snip__name">04 · CTA band (dark)</span>
+        <button class="snip__copy" data-copy>⧉ Copy</button>
+      </div>
+      <div class="snip__preview">
+        <section class="section--m bg--ultra-dark" data-etch-element="section" style="border-radius:var(--radius)">
+          <div class="content-width" data-etch-element="container" style="text-align:center; display:flex; flex-direction:column; gap:var(--space-m); align-items:center">
+            <h2 class="h2">Ready to build faster?</h2>
+            <p class="text--l">Drop these blocks into Etch and ship in record time.</p>
+            <a class="btn--primary" href="#">Start now</a>
+          </div>
+        </section>
+      </div>
+      <pre class="snip__code"><code>&lt;section class="section--m bg--ultra-dark" data-etch-element="section"&gt;
+  &lt;div class="content-width" data-etch-element="container"&gt;
+    &lt;h2 class="h2"&gt;Ready to build faster?&lt;/h2&gt;
+    &lt;p class="text--l"&gt;Drop these blocks into Etch and ship fast.&lt;/p&gt;
+    &lt;a class="btn--primary" href="#"&gt;Start now&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+    </div>
+
+    <!-- 5 · FAQ -->
+    <div class="snip" data-snip>
+      <div class="snip__bar">
+        <span class="snip__name">05 · FAQ accordion</span>
+        <button class="snip__copy" data-copy>⧉ Copy</button>
+      </div>
+      <div class="snip__preview">
+        <section class="section--m bg--ultra-light" data-etch-element="section" style="border-radius:var(--radius)">
+          <div class="content-width" data-etch-element="container" style="max-inline-size:42rem">
+            <div class="accordion" data-accordion>
+              <div class="accordion__item" data-open="true"><button class="accordion__trigger" data-accordion-trigger>First question? <span class="accordion__icon">▾</span></button><div class="accordion__panel"><div class="accordion__panel-inner"><p>The answer to the first question.</p></div></div></div>
+              <div class="accordion__item"><button class="accordion__trigger" data-accordion-trigger>Second question? <span class="accordion__icon">▾</span></button><div class="accordion__panel"><div class="accordion__panel-inner"><p>The answer to the second question.</p></div></div></div>
+            </div>
+          </div>
+        </section>
+      </div>
+      <pre class="snip__code"><code>&lt;section class="section--m" data-etch-element="section"&gt;
+  &lt;div class="content-width" data-etch-element="container"&gt;
+    &lt;div class="accordion"&gt;
+      &lt;div class="accordion__item" data-open="true"&gt;
+        &lt;button class="accordion__trigger"&gt;First question?
+          &lt;span class="accordion__icon"&gt;▾&lt;/span&gt;
+        &lt;/button&gt;
+        &lt;div class="accordion__panel"&gt;&lt;div class="accordion__panel-inner"&gt;
+          &lt;p&gt;The answer.&lt;/p&gt;
+        &lt;/div&gt;&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+    </div>
+
+    <!-- 6 · FOOTER -->
+    <div class="snip" data-snip>
+      <div class="snip__bar">
+        <span class="snip__name">06 · Footer</span>
+        <button class="snip__copy" data-copy>⧉ Copy</button>
+      </div>
+      <div class="snip__preview">
+        <footer class="section--s bg--ultra-dark" data-etch-element="section" style="border-radius:var(--radius)">
+          <div class="site-footer" data-etch-element="container">
+            <div class="site-footer__inner">
+              <div class="site-footer__brand"><span class="site-footer__logo"><span class="sg-topbar__mark">◆</span> Brand</span><p class="text--s">One-line description.</p></div>
+              <div class="site-footer__col"><span class="site-footer__title">Product</span><ul><li><a href="#">Features</a></li><li><a href="#">Pricing</a></li></ul></div>
+              <div class="site-footer__col"><span class="site-footer__title">Company</span><ul><li><a href="#">About</a></li><li><a href="#">Contact</a></li></ul></div>
+              <div class="site-footer__col"><span class="site-footer__title">Legal</span><ul><li><a href="#">Imprint</a></li><li><a href="#">Privacy</a></li></ul></div>
+            </div>
+            <div class="site-footer__bottom"><span>© 2026 Brand</span><span>Built on ACSS</span></div>
+          </div>
+        </footer>
+      </div>
+      <pre class="snip__code"><code>&lt;footer class="section--s bg--ultra-dark" data-etch-element="section"&gt;
+  &lt;div class="site-footer" data-etch-element="container"&gt;
+    &lt;div class="site-footer__inner"&gt;
+      &lt;div class="site-footer__brand"&gt;...&lt;/div&gt;
+      &lt;div class="site-footer__col"&gt;
+        &lt;span class="site-footer__title"&gt;Product&lt;/span&gt;
+        &lt;ul&gt;&lt;li&gt;&lt;a href="#"&gt;Features&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="site-footer__bottom"&gt;...&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/footer&gt;</code></pre>
+    </div>
+
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  componentDidMount() {
+    const scope = this.el && this.el.querySelector ? this.el : document;
+
+    scope.addEventListener("click", (e) => {
+      // Copy snippet code
+      const copyBtn = e.target.closest("[data-copy]");
+      if (copyBtn) {
+        const snip = copyBtn.closest("[data-snip]");
+        const code = snip && snip.querySelector(".snip__code code");
+        if (!code) return;
+        const text = code.textContent;
+        const done = () => {
+          const orig = copyBtn.textContent;
+          copyBtn.textContent = "✓ Copied";
+          copyBtn.classList.add("snip__copy--done");
+          setTimeout(() => {
+            copyBtn.textContent = orig;
+            copyBtn.classList.remove("snip__copy--done");
+          }, 1600);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(done).catch(done);
+        } else {
+          const ta = document.createElement("textarea");
+          ta.value = text;
+          document.body.appendChild(ta);
+          ta.select();
+          try { document.execCommand("copy"); } catch (err) {}
+          ta.remove();
+          done();
+        }
+        return;
+      }
+
+      // Live accordion in previews
+      const trig = e.target.closest("[data-accordion-trigger]");
+      if (trig) {
+        const item = trig.closest(".accordion__item");
+        const open = item.getAttribute("data-open") === "true";
+        item.setAttribute("data-open", open ? "false" : "true");
+      }
+    });
+  }
+
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

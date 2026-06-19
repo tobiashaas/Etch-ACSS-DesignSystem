@@ -1,0 +1,14 @@
+/* ==========================================================================
+   Etch Defaults  —  mirrors Etch's low-priority default styling layer.
+   Lives in @layer etch-defaults: easy to override by ACSS + components.
+   ACSS sets the real body font via --text-font-family (unlayered, wins).
+   ========================================================================== */
+@layer etch-defaults {
+  body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    font-family: system-ui;
+    display: flex;
+    flex-direction: column;
+  }
+}

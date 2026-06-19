@@ -1,0 +1,26 @@
+/* ==========================================================================
+   Fonts  —  100% self-hosted (DSGVO / GDPR, zero external requests).
+   This file is unlayered and loads AFTER automatic.css, so these :root
+   overrides win over the ACSS defaults.
+
+   ▸ This is a REFERENCE pairing only. The brand design system decides the
+     real typefaces later — swap the @font-face block + the two custom
+     properties below and the whole system reflows. Nothing else changes.
+   ========================================================================== */
+
+@font-face {
+  font-family: "Clash Grotesk";
+  src: url("../fonts/ClashGrotesk-Variable.woff2") format("woff2-variations");
+  font-weight: 200 700;
+  font-display: swap;
+  font-style: normal;
+}
+
+:root {
+  /* Heading face → self-hosted variable font. Body face → native system
+     stack (always local, instant, no download). */
+  --heading-font-family: "Clash Grotesk", system-ui, sans-serif;
+  --text-font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif;
+  --heading-font-weight: 600;
+}

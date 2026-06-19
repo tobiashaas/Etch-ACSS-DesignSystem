@@ -1,0 +1,695 @@
+<!-- @dsCard group="Components" title="Styleguide" subtitle="Living component library — all blocks, light & dark" -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="assets/css/etch-reset.css" />
+  <link rel="stylesheet" href="assets/css/etch-defaults.css" />
+  <link rel="stylesheet" href="assets/css/automatic.css" />
+  <link rel="stylesheet" href="assets/css/fonts.css" />
+  <link rel="stylesheet" href="assets/css/components.css" />
+  <style>
+    body { background: var(--body-bg-color); color: var(--text-color); }
+
+    /* ---- Styleguide chrome (presentation of the guide itself, .sg- prefix) ---- */
+    .sg-topbar {
+      position: sticky; inset-block-start: 0; z-index: 50;
+      display: flex; align-items: center; justify-content: space-between; gap: var(--space-m);
+      padding-block: var(--space-s); padding-inline: var(--gutter);
+      background: color-mix(in srgb, var(--body-bg-color) 86%, transparent);
+      backdrop-filter: blur(10px);
+      border-block-end: 1px solid color-mix(in srgb, var(--neutral) 18%, transparent);
+    }
+    .sg-topbar__brand { display: inline-flex; align-items: center; gap: .6rem; font-family: var(--heading-font-family); font-weight: 600; font-size: var(--text-l); color: var(--heading-color); }
+    .sg-topbar__mark { display: grid; place-items: center; inline-size: 2rem; block-size: 2rem; border-radius: 7px; background: var(--primary); color: #fff; font-size: .9rem; }
+    .sg-topbar__links { display: flex; gap: var(--space-s); flex-wrap: wrap; }
+    .sg-topbar__link { font-size: var(--text-s); color: var(--text-color); text-decoration: none; padding-block: .4em; padding-inline: .8em; border-radius: var(--radius); transition: var(--transition); }
+    .sg-topbar__link:hover { background: color-mix(in srgb, var(--neutral) 12%, transparent); color: var(--heading-color); }
+    .sg-topbar__link--active { background: var(--primary); color: #fff; }
+
+    .sg-wrap { inline-size: 100%; max-inline-size: 78rem; margin-inline: auto; padding-inline: var(--gutter); }
+    .sg-section { padding-block: var(--section-space-s); border-block-end: 1px solid color-mix(in srgb, var(--neutral) 14%, transparent); }
+    .sg-section__head { margin-block-end: var(--space-l); max-inline-size: 60ch; }
+    .sg-section__num { font-family: var(--heading-font-family); font-size: var(--text-s); color: var(--primary); letter-spacing: .12em; }
+    .sg-section__title { font-size: var(--h2); margin-block: .2em .25em; }
+    .sg-section__desc { color: var(--text-color); }
+
+    .sg-label { font-size: var(--text-xs); letter-spacing: .08em; text-transform: uppercase; color: color-mix(in srgb, var(--neutral) 85%, transparent); margin-block-end: var(--space-s); display: block; }
+    .sg-block { margin-block-end: var(--space-xl); }
+
+    .sg-demo { padding: var(--space-l); border: 1px dashed color-mix(in srgb, var(--neutral) 30%, transparent); border-radius: var(--radius); background: color-mix(in srgb, var(--white) 55%, transparent); }
+    .sg-demo--plain { padding: 0; border: 0; background: none; }
+
+    .sg-code { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: .8rem; color: var(--primary-dark); background: color-mix(in srgb, var(--primary) 9%, transparent); padding: .15em .45em; border-radius: 5px; }
+    .sg-caption { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: .72rem; color: color-mix(in srgb, var(--neutral) 90%, transparent); margin-block-start: .5em; }
+
+    /* color swatches */
+    .sg-pal { display: flex; flex-direction: column; gap: var(--space-l); }
+    .sg-pal__row { display: flex; flex-direction: column; gap: .5rem; }
+    .sg-pal__name { font-weight: 600; color: var(--heading-color); font-family: var(--heading-font-family); }
+    .sg-pal__strip { display: grid; grid-template-columns: repeat(8, 1fr); gap: .4rem; }
+    .sg-pal__strip--sm { grid-template-columns: repeat(4, 1fr); max-inline-size: 32rem; }
+    .sg-sw { display: flex; flex-direction: column; gap: .35rem; }
+    .sg-sw__chip { block-size: 3.25rem; border-radius: 7px; border: 1px solid color-mix(in srgb, var(--neutral) 18%, transparent); }
+    .sg-sw__cap { font-family: ui-monospace, monospace; font-size: .62rem; color: color-mix(in srgb, var(--neutral) 90%, transparent); }
+
+    /* type rows */
+    .sg-type { display: flex; flex-direction: column; gap: var(--space-m); }
+    .sg-type__row { display: flex; align-items: baseline; gap: var(--space-m); flex-wrap: wrap; padding-block-end: var(--space-s); border-block-end: 1px solid color-mix(in srgb, var(--neutral) 10%, transparent); }
+    .sg-type__meta { flex: 0 0 7rem; font-family: ui-monospace, monospace; font-size: .72rem; color: color-mix(in srgb, var(--neutral) 90%, transparent); }
+
+    /* spacing bars */
+    .sg-space { display: flex; flex-direction: column; gap: var(--space-s); }
+    .sg-space__row { display: flex; align-items: center; gap: var(--space-m); }
+    .sg-space__meta { flex: 0 0 9rem; font-family: ui-monospace, monospace; font-size: .72rem; color: color-mix(in srgb, var(--neutral) 90%, transparent); }
+    .sg-space__bar { block-size: 1.1rem; border-radius: 4px; background: var(--primary); }
+
+    .sg-grid-demo > * { background: color-mix(in srgb, var(--primary) 12%, transparent); border: 1px solid color-mix(in srgb, var(--primary) 30%, transparent); border-radius: 6px; padding: var(--space-s); text-align: center; font-family: ui-monospace, monospace; font-size: .72rem; color: var(--primary-dark); }
+
+    .sg-arch { display: grid; gap: .6rem; }
+    .sg-arch__layer { display: flex; align-items: center; gap: var(--space-s); padding: var(--space-s) var(--space-m); border-radius: var(--radius); border: 1px solid color-mix(in srgb, var(--neutral) 18%, transparent); background: var(--bg-ultra-light); }
+    .sg-arch__idx { display: grid; place-items: center; inline-size: 1.8rem; block-size: 1.8rem; border-radius: 6px; background: var(--primary); color: #fff; font-family: ui-monospace, monospace; font-size: .8rem; flex-shrink: 0; }
+    .sg-arch__name { font-family: ui-monospace, monospace; font-size: .8rem; color: var(--heading-color); font-weight: 600; }
+    .sg-arch__note { color: var(--text-color); font-size: var(--text-s); }
+    .sg-arch__win { margin-inline-start: auto; font-size: var(--text-xs); color: var(--success); font-weight: 600; }
+
+    .sg-rowwrap { display: flex; flex-wrap: wrap; gap: var(--space-s); align-items: center; }
+    .sg-colwrap { display: flex; flex-direction: column; gap: var(--space-s); }
+  </style>
+</helmet>
+
+<div data-sg-root="true">
+
+  <header class="sg-topbar">
+    <span class="sg-topbar__brand"><span class="sg-topbar__mark">◆</span> Design System</span>
+    <nav class="sg-topbar__links">
+      <a class="sg-topbar__link" href="Overview.dc.html">Overview</a>
+      <a class="sg-topbar__link sg-topbar__link--active" href="Design System.dc.html">Styleguide</a>
+      <a class="sg-topbar__link" href="ACSS Setup Guide.dc.html">ACSS Setup</a>
+      <a class="sg-topbar__link" href="ACSS Dashboard Values.dc.html">Dashboard</a>
+      <a class="sg-topbar__link" href="Etch Snippets.dc.html">Etch Snippets</a>
+    </nav>
+  </header>
+
+  <!-- ===================== INTRO / ARCHITECTURE ===================== -->
+  <section class="sg-wrap sg-section" data-screen-label="Architecture">
+    <div class="sg-section__head">
+      <span class="sg-section__num">00 — FOUNDATION</span>
+      <h1 class="sg-section__title">A token-driven system built on Automatic.css</h1>
+      <p class="sg-section__desc">Brand-agnostic components authored exactly the way they live in Etch + WordPress: strict BEM, native CSS nesting, logical properties (RTL-safe) and every value a token. This guide runs <em>parallel</em> to the brand design system — the brand decides colours, fonts &amp; icons; this layer decides structure &amp; behaviour.</p>
+    </div>
+
+    <div class="sg-block">
+      <span class="sg-label">The cascade — load order &amp; who wins</span>
+      <div class="sg-arch">
+        <div class="sg-arch__layer"><span class="sg-arch__idx">1</span><div><div class="sg-arch__name">@layer etch-reset</div><div class="sg-arch__note">WordPress / Etch front-end reset — box-sizing, media, lists.</div></div></div>
+        <div class="sg-arch__layer"><span class="sg-arch__idx">2</span><div><div class="sg-arch__name">@layer etch-defaults</div><div class="sg-arch__note">Etch low-priority defaults — easy to override.</div></div></div>
+        <div class="sg-arch__layer"><span class="sg-arch__idx">3</span><div><div class="sg-arch__name">automatic.css (unlayered)</div><div class="sg-arch__note">The real ACSS framework — tokens + utilities. Beats both layers.</div></div><span class="sg-arch__win">overrides ↑</span></div>
+        <div class="sg-arch__layer"><span class="sg-arch__idx">4</span><div><div class="sg-arch__name">fonts.css + components.css (unlayered)</div><div class="sg-arch__note">Our blocks &amp; type — loaded last, win on equal specificity.</div></div><span class="sg-arch__win">final say ✓</span></div>
+      </div>
+      <p class="sg-caption">Unlayered CSS always beats @layer-ed CSS — so ACSS &amp; components override the Etch defaults without specificity hacks, mirroring the live WordPress environment.</p>
+    </div>
+
+    <div class="sg-block">
+      <span class="sg-label">Everything is local — DSGVO / GDPR</span>
+      <div class="sg-rowwrap">
+        <span class="badge badge--success">Fonts self-hosted</span>
+        <span class="badge badge--success">No CDN at runtime</span>
+        <span class="badge badge--success">No Google Fonts call</span>
+        <span class="badge badge--soft">Icons → brand layer</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== COLOR ===================== -->
+  <section class="sg-wrap sg-section" data-screen-label="Color">
+    <div class="sg-section__head">
+      <span class="sg-section__num">01 — COLOR</span>
+      <h2 class="sg-section__title">Palette &amp; shades</h2>
+      <p class="sg-section__desc">Reference palette from <span class="sg-code">automatic.css</span> (OKLCH). The brand design system swaps these values in the ACSS dashboard — every component re-tints automatically because nothing hard-codes a colour.</p>
+    </div>
+
+    <div class="sg-pal">
+      <div class="sg-pal__row">
+        <span class="sg-pal__name">Primary</span>
+        <div class="sg-pal__strip">
+          <div class="sg-sw"><div class="sg-sw__chip" style="background:var(--primary-ultra-light)"></div><span class="sg-sw__cap">ultra-light</span></div>
+          <div class="sg-sw"><div class="sg-sw__chip" style="background:var(--primary-light)"></div><span class="sg-sw__cap">light</span></div>
+          <div class="sg-sw"><div class="sg-sw__chip" style="background:var(--primary-semi-light)"></div><span class="sg-sw__cap">semi-light</span></div>
+          <div class="sg-sw"><div class="sg-sw__chip" style="background:var(--primary)"></div><span class="sg-sw__cap">primary</span></div>
+          <div class="sg-sw"><div class="sg-sw__chip" style="background:var(--primary-hover)"></div><span class="sg-sw__cap">hover</span></div>
+          <div class="sg-sw"><div class="sg-sw__chip" style="background:var(--primary-semi-dark)"></div><span class="sg-sw__cap">semi-dark</span></div>
+          <div class="sg-sw"><div class="sg-sw__chip" style="background:var(--primary-dark)"></div><span class="sg-sw__cap">dark</span></div>
+          <div class="sg-sw"><div class="sg-sw__chip" style="background:var(--primary-ultra-dark)"></div><span class="sg-sw__cap">ultra-dark</span></div>
+        </div>
+      </div>
+      <div class="sg-pal__row">
+        <span class="sg-pal__name">Secondary</span>
+        <div class="sg-pal__strip">
+          <div class="sg-sw"><div class="sg-sw__chip" style="background:var(--secondary-ultra-light)"></div><span class="sg-sw__cap">ultra-light</span></div>
+          <div class="sg-sw"><div class="sg-sw__chip" style="background:var(--secondary-light)"></div><span class="sg-sw__cap">light</span></div>
+          <div class="sg-sw"><div class="sg-sw__chip" style="background:var(--secondary-semi-light)"></div><span class="sg-sw__cap">semi-light</span></div>
+          <div class="sg-sw"><div class="sg-sw__chip" style="background:var(--secondary)"></div><span class="sg-sw__cap">secondary</span></div>
+          <div class="sg-sw"><div class="sg-sw__chip" style="background:var(--secondary-hover)"></div><span class="sg-sw__cap">hover</span></div>
+          <div class="sg-sw"><div class="sg-sw__chip" style="background:var(--secondary-semi-dark)"></div><span class="sg-sw__cap">semi-dark</span></div>
+          <div class="sg-sw"><div class="sg-sw__chip" style="background:var(--secondary-dark)"></div><span class="sg-sw__cap">dark</span></div>
+          <div class="sg-sw"><div class="sg-sw__chip" style="background:var(--secondary-ultra-dark)"></div><span class="sg-sw__cap">ultra-dark</span></div>
+        </div>
+      </div>
+      <div class="sg-pal__row">
+        <span class="sg-pal__name">Tertiary</span>
+        <div class="sg-pal__strip">
+          <div class="sg-sw"><div class="sg-sw__chip" style="background:var(--tertiary-ultra-light)"></div><span class="sg-sw__cap">ultra-light</span></div>
+          <div class="sg-sw"><div class="sg-sw__chip" style="background:var(--tertiary-light)"></div><span class="sg-sw__cap">light</span></div>
+          <div class="sg-sw"><div class="sg-sw__chip" style="background:var(--tertiary-semi-light)"></div><span class="sg-sw__cap">semi-light</span></div>
+          <div class="sg-sw"><div class="sg-sw__chip" style="background:var(--tertiary)"></div><span class="sg-sw__cap">tertiary</span></div>
+          <div class="sg-sw"><div class="sg-sw__chip" style="background:var(--tertiary-hover)"></div><span class="sg-sw__cap">hover</span></div>
+          <div class="sg-sw"><div class="sg-sw__chip" style="background:var(--tertiary-semi-dark)"></div><span class="sg-sw__cap">semi-dark</span></div>
+          <div class="sg-sw"><div class="sg-sw__chip" style="background:var(--tertiary-dark)"></div><span class="sg-sw__cap">dark</span></div>
+          <div class="sg-sw"><div class="sg-sw__chip" style="background:var(--tertiary-ultra-dark)"></div><span class="sg-sw__cap">ultra-dark</span></div>
+        </div>
+      </div>
+      <div class="sg-pal__row">
+        <span class="sg-pal__name">Base &amp; Neutral</span>
+        <div class="sg-pal__strip">
+          <div class="sg-sw"><div class="sg-sw__chip" style="background:var(--base-ultra-light)"></div><span class="sg-sw__cap">base-ul</span></div>
+          <div class="sg-sw"><div class="sg-sw__chip" style="background:var(--base-light)"></div><span class="sg-sw__cap">base-l</span></div>
+          <div class="sg-sw"><div class="sg-sw__chip" style="background:var(--base)"></div><span class="sg-sw__cap">base</span></div>
+          <div class="sg-sw"><div class="sg-sw__chip" style="background:var(--base-dark)"></div><span class="sg-sw__cap">base-d</span></div>
+          <div class="sg-sw"><div class="sg-sw__chip" style="background:var(--neutral-light)"></div><span class="sg-sw__cap">neut-l</span></div>
+          <div class="sg-sw"><div class="sg-sw__chip" style="background:var(--neutral)"></div><span class="sg-sw__cap">neutral</span></div>
+          <div class="sg-sw"><div class="sg-sw__chip" style="background:var(--neutral-dark)"></div><span class="sg-sw__cap">neut-d</span></div>
+          <div class="sg-sw"><div class="sg-sw__chip" style="background:var(--neutral-ultra-dark)"></div><span class="sg-sw__cap">neut-ud</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sg-block" style="margin-block-start: var(--space-xl)">
+      <span class="sg-label">Semantic</span>
+      <div class="sg-pal__strip sg-pal__strip--sm" style="grid-template-columns: repeat(4, 1fr); max-inline-size: 36rem;">
+        <div class="sg-sw"><div class="sg-sw__chip" style="background:var(--success)"></div><span class="sg-sw__cap">success</span></div>
+        <div class="sg-sw"><div class="sg-sw__chip" style="background:var(--warning)"></div><span class="sg-sw__cap">warning</span></div>
+        <div class="sg-sw"><div class="sg-sw__chip" style="background:var(--danger)"></div><span class="sg-sw__cap">danger</span></div>
+        <div class="sg-sw"><div class="sg-sw__chip" style="background:var(--info)"></div><span class="sg-sw__cap">info</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TYPOGRAPHY ===================== -->
+  <section class="sg-wrap sg-section" data-screen-label="Typography">
+    <div class="sg-section__head">
+      <span class="sg-section__num">02 — TYPOGRAPHY</span>
+      <h2 class="sg-section__title">Type scale</h2>
+      <p class="sg-section__desc">Fully fluid <span class="sg-code">clamp()</span> scale from ACSS. Headings: <span class="sg-code">Clash Grotesk</span> (self-hosted variable font). Body: native system stack. Both swappable via <span class="sg-code">fonts.css</span>.</p>
+    </div>
+
+    <div class="sg-type">
+      <div class="sg-type__row"><span class="sg-type__meta">.h1 / h1</span><span class="h1">Heading one</span></div>
+      <div class="sg-type__row"><span class="sg-type__meta">.h2 / h2</span><span class="h2">Heading two</span></div>
+      <div class="sg-type__row"><span class="sg-type__meta">.h3 / h3</span><span class="h3">Heading three</span></div>
+      <div class="sg-type__row"><span class="sg-type__meta">.h4 / h4</span><span class="h4">Heading four</span></div>
+      <div class="sg-type__row"><span class="sg-type__meta">.text--xl</span><span class="text--xl">Lead paragraph — extra large body text.</span></div>
+      <div class="sg-type__row"><span class="sg-type__meta">.text--l</span><span class="text--l">Large body text for intros.</span></div>
+      <div class="sg-type__row"><span class="sg-type__meta">.text--m</span><span class="text--m">Default body copy — the workhorse size for paragraphs.</span></div>
+      <div class="sg-type__row"><span class="sg-type__meta">.text--s</span><span class="text--s">Small text for captions and meta.</span></div>
+      <div class="sg-type__row"><span class="sg-type__meta">.text--xs</span><span class="text--xs">Extra-small — labels &amp; fine print.</span></div>
+    </div>
+  </section>
+
+  <!-- ===================== SPACING ===================== -->
+  <section class="sg-wrap sg-section" data-screen-label="Spacing">
+    <div class="sg-section__head">
+      <span class="sg-section__num">03 — SPACING</span>
+      <h2 class="sg-section__title">Spacing &amp; section rhythm</h2>
+      <p class="sg-section__desc">Two fluid scales: <span class="sg-code">--space-*</span> for components, <span class="sg-code">--section-space-*</span> for vertical section padding. Always applied with logical properties (<span class="sg-code">padding-block</span> / <span class="sg-code">padding-inline</span>).</p>
+    </div>
+
+    <div class="sg-space">
+      <div class="sg-space__row"><span class="sg-space__meta">--space-xs</span><div class="sg-space__bar" style="inline-size:var(--space-xs)"></div></div>
+      <div class="sg-space__row"><span class="sg-space__meta">--space-s</span><div class="sg-space__bar" style="inline-size:var(--space-s)"></div></div>
+      <div class="sg-space__row"><span class="sg-space__meta">--space-m</span><div class="sg-space__bar" style="inline-size:var(--space-m)"></div></div>
+      <div class="sg-space__row"><span class="sg-space__meta">--space-l</span><div class="sg-space__bar" style="inline-size:var(--space-l)"></div></div>
+      <div class="sg-space__row"><span class="sg-space__meta">--space-xl</span><div class="sg-space__bar" style="inline-size:var(--space-xl)"></div></div>
+      <div class="sg-space__row"><span class="sg-space__meta">--space-xxl</span><div class="sg-space__bar" style="inline-size:var(--space-xxl)"></div></div>
+      <div class="sg-space__row"><span class="sg-space__meta">--section-space-m</span><div class="sg-space__bar" style="inline-size:var(--section-space-m); background:var(--secondary)"></div></div>
+      <div class="sg-space__row"><span class="sg-space__meta">--section-space-l</span><div class="sg-space__bar" style="inline-size:var(--section-space-l); background:var(--secondary)"></div></div>
+    </div>
+  </section>
+
+  <!-- ===================== LAYOUT ===================== -->
+  <section class="sg-wrap sg-section" data-screen-label="Layout">
+    <div class="sg-section__head">
+      <span class="sg-section__num">04 — LAYOUT</span>
+      <h2 class="sg-section__title">Section, container &amp; grids</h2>
+      <p class="sg-section__desc">In Etch a <span class="sg-code">&lt;section&gt;</span> auto-gets <span class="sg-code">data-etch-element="section"</span> and inner wrappers <span class="sg-code">data-etch-element="container"</span>. ACSS handles padding, content-width centring &amp; grid gaps automatically.</p>
+    </div>
+
+    <div class="sg-block">
+      <span class="sg-label">.grid--3 — fixed 3-up</span>
+      <div class="grid--3 sg-grid-demo"><div>1</div><div>2</div><div>3</div></div>
+    </div>
+    <div class="sg-block">
+      <span class="sg-label">.grid--auto-4 — auto-fit, wraps responsively</span>
+      <div class="grid--auto-4 sg-grid-demo"><div>1</div><div>2</div><div>3</div><div>4</div></div>
+    </div>
+    <div class="sg-block">
+      <span class="sg-label">.grid--2-1 — asymmetric 2fr / 1fr</span>
+      <div class="grid--2-1 sg-grid-demo"><div>main · 2fr</div><div>aside · 1fr</div></div>
+    </div>
+  </section>
+
+  <!-- ===================== BUTTONS ===================== -->
+  <section class="sg-wrap sg-section" data-screen-label="Buttons">
+    <div class="sg-section__head">
+      <span class="sg-section__num">05 — BUTTONS</span>
+      <h2 class="sg-section__title">Buttons</h2>
+      <p class="sg-section__desc">ACSS provides the <span class="sg-code">.btn--*</span> engine (token-driven). We extend it with the missing semantic colours &amp; structural modifiers — no base rules duplicated.</p>
+    </div>
+
+    <div class="sg-block">
+      <span class="sg-label">Solid variants</span>
+      <div class="sg-demo sg-rowwrap">
+        <a class="btn--primary" href="#">Primary</a>
+        <a class="btn--secondary" href="#">Secondary</a>
+        <a class="btn--tertiary" href="#">Tertiary</a>
+        <a class="btn--accent" href="#">Accent</a>
+        <a class="btn--success" href="#">Success</a>
+        <a class="btn--danger" href="#">Danger</a>
+        <a class="btn--ghost" href="#">Ghost</a>
+      </div>
+    </div>
+    <div class="sg-block">
+      <span class="sg-label">Outline</span>
+      <div class="sg-demo sg-rowwrap">
+        <a class="btn--primary btn--outline" href="#">Primary</a>
+        <a class="btn--secondary btn--outline" href="#">Secondary</a>
+        <a class="btn--tertiary btn--outline" href="#">Tertiary</a>
+      </div>
+    </div>
+    <div class="sg-block">
+      <span class="sg-label">Sizes — .btn--xs → .btn--xl</span>
+      <div class="sg-demo sg-rowwrap">
+        <a class="btn--primary btn--xs" href="#">XS</a>
+        <a class="btn--primary btn--s" href="#">S</a>
+        <a class="btn--primary btn--m" href="#">M</a>
+        <a class="btn--primary btn--l" href="#">L</a>
+        <a class="btn--primary btn--xl" href="#">XL</a>
+      </div>
+    </div>
+    <div class="sg-block">
+      <span class="sg-label">.btn--block — full width</span>
+      <div class="sg-demo"><a class="btn--primary btn--block" href="#">Continue</a></div>
+    </div>
+  </section>
+
+  <!-- ===================== BADGES ===================== -->
+  <section class="sg-wrap sg-section" data-screen-label="Badges">
+    <div class="sg-section__head">
+      <span class="sg-section__num">06 — BADGES &amp; TAGS</span>
+      <h2 class="sg-section__title">Badges, pills &amp; tags</h2>
+    </div>
+    <div class="sg-block">
+      <span class="sg-label">Solid</span>
+      <div class="sg-demo sg-rowwrap">
+        <span class="badge">Primary</span>
+        <span class="badge badge--secondary">Secondary</span>
+        <span class="badge badge--success">Success</span>
+        <span class="badge badge--warning">Warning</span>
+        <span class="badge badge--danger">Danger</span>
+        <span class="badge badge--info">Info</span>
+      </div>
+    </div>
+    <div class="sg-block">
+      <span class="sg-label">Soft · outline · pill · with dot</span>
+      <div class="sg-demo sg-rowwrap">
+        <span class="badge badge--soft">Soft</span>
+        <span class="badge badge--success badge--soft">Soft</span>
+        <span class="badge badge--outline">Outline</span>
+        <span class="badge badge--pill">Pill</span>
+        <span class="badge badge--success badge--soft badge--pill"><span class="badge__dot"></span> Live</span>
+      </div>
+    </div>
+    <div class="sg-block">
+      <span class="sg-label">Tags (removable)</span>
+      <div class="sg-demo sg-rowwrap">
+        <span class="tag">WordPress <button class="tag__remove" aria-label="Remove">×</button></span>
+        <span class="tag">Etch <button class="tag__remove" aria-label="Remove">×</button></span>
+        <span class="tag">ACSS <button class="tag__remove" aria-label="Remove">×</button></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CARDS ===================== -->
+  <section class="sg-wrap sg-section" data-screen-label="Cards">
+    <div class="sg-section__head">
+      <span class="sg-section__num">07 — CARDS</span>
+      <h2 class="sg-section__title">Cards</h2>
+    </div>
+
+    <div class="sg-block">
+      <span class="sg-label">Feature cards</span>
+      <div class="grid--auto-3">
+        <article class="card card--feature card--interactive">
+          <span class="card__icon">▣</span>
+          <h3 class="card__title">Token-driven</h3>
+          <p class="card__text">Every value references an ACSS custom property. Re-theme the whole site by changing tokens.</p>
+        </article>
+        <article class="card card--feature card--interactive">
+          <span class="card__icon">⌘</span>
+          <h3 class="card__title">Etch-native</h3>
+          <p class="card__text">Markup carries the data-etch-element attributes Etch expects out of the box.</p>
+        </article>
+        <article class="card card--feature card--interactive">
+          <span class="card__icon">⇆</span>
+          <h3 class="card__title">RTL-safe</h3>
+          <p class="card__text">Logical properties throughout, so right-to-left layouts just work.</p>
+        </article>
+      </div>
+    </div>
+
+    <div class="sg-block">
+      <span class="sg-label">Media card</span>
+      <div class="grid--auto-3">
+        <article class="card">
+          <div class="card__media"><img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=640&q=70" alt="" /></div>
+          <h3 class="card__title">With media</h3>
+          <p class="card__text">Full-bleed image inside the padding box with logical start-radius.</p>
+          <div class="card__footer"><a class="btn--primary btn--s" href="#">Read more</a></div>
+        </article>
+      </div>
+    </div>
+
+    <div class="sg-block">
+      <span class="sg-label">Pricing cards</span>
+      <div class="grid--3">
+        <article class="card card--pricing">
+          <span class="badge badge--soft badge--pill">Starter</span>
+          <div class="card__price"><span class="card__price-amount">€0</span><span class="card__price-period">/mo</span></div>
+          <ul class="card__list">
+            <li><span>✓</span> 1 project</li>
+            <li><span>✓</span> Community support</li>
+          </ul>
+          <a class="btn--primary btn--outline btn--block" href="#">Choose</a>
+        </article>
+        <article class="card card--pricing card--featured">
+          <span class="badge badge--pill">Most popular</span>
+          <div class="card__price"><span class="card__price-amount">€29</span><span class="card__price-period">/mo</span></div>
+          <ul class="card__list">
+            <li><span>✓</span> Unlimited projects</li>
+            <li><span>✓</span> Priority support</li>
+            <li><span>✓</span> Brand tokens</li>
+          </ul>
+          <a class="btn--primary btn--block" href="#">Choose</a>
+        </article>
+        <article class="card card--pricing">
+          <span class="badge badge--soft badge--pill">Agency</span>
+          <div class="card__price"><span class="card__price-amount">€99</span><span class="card__price-period">/mo</span></div>
+          <ul class="card__list">
+            <li><span>✓</span> White-label</li>
+            <li><span>✓</span> SLA</li>
+          </ul>
+          <a class="btn--primary btn--outline btn--block" href="#">Contact</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FORMS ===================== -->
+  <section class="sg-wrap sg-section" data-screen-label="Forms">
+    <div class="sg-section__head">
+      <span class="sg-section__num">08 — FORMS</span>
+      <h2 class="sg-section__title">Form controls</h2>
+    </div>
+    <div class="sg-demo">
+      <div class="grid--2" style="gap: var(--space-l)">
+        <div class="field">
+          <label class="field__label" for="f-name">Name</label>
+          <input class="input" id="f-name" type="text" placeholder="Jane Doe" />
+          <span class="field__hint">As it should appear publicly.</span>
+        </div>
+        <div class="field field--error">
+          <label class="field__label" for="f-mail">Email</label>
+          <input class="input" id="f-mail" type="email" value="not-an-email" />
+          <span class="field__error">Please enter a valid email.</span>
+        </div>
+        <div class="field">
+          <label class="field__label" for="f-plan">Plan</label>
+          <select class="select" id="f-plan"><option>Starter</option><option>Pro</option><option>Agency</option></select>
+        </div>
+        <div class="field">
+          <label class="field__label" for="f-msg">Message</label>
+          <textarea class="textarea" id="f-msg" placeholder="Tell us more…"></textarea>
+        </div>
+      </div>
+      <div class="sg-rowwrap" style="margin-block-start: var(--space-m)">
+        <label class="choice"><input type="checkbox" checked /> Subscribe to updates</label>
+        <label class="choice"><input type="radio" name="r" checked /> Option A</label>
+        <label class="choice"><input type="radio" name="r" /> Option B</label>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ALERTS ===================== -->
+  <section class="sg-wrap sg-section" data-screen-label="Alerts">
+    <div class="sg-section__head">
+      <span class="sg-section__num">09 — ALERTS</span>
+      <h2 class="sg-section__title">Alerts &amp; notices</h2>
+    </div>
+    <div class="sg-colwrap">
+      <div class="alert alert--info"><span class="alert__icon">ℹ</span><div class="alert__body"><span class="alert__title">Heads up</span><span class="alert__text">This is an informational notice using contextual tokens.</span></div></div>
+      <div class="alert alert--success"><span class="alert__icon">✓</span><div class="alert__body"><span class="alert__title">Saved</span><span class="alert__text">Your changes were saved successfully.</span></div></div>
+      <div class="alert alert--warning"><span class="alert__icon">!</span><div class="alert__body"><span class="alert__title">Careful</span><span class="alert__text">This action affects published content.</span></div></div>
+      <div class="alert alert--danger"><span class="alert__icon">✕</span><div class="alert__body"><span class="alert__title">Error</span><span class="alert__text">Something went wrong. Please try again.</span></div></div>
+    </div>
+  </section>
+
+  <!-- ===================== TABS ===================== -->
+  <section class="sg-wrap sg-section" data-screen-label="Tabs">
+    <div class="sg-section__head">
+      <span class="sg-section__num">10 — TABS</span>
+      <h2 class="sg-section__title">Tabs</h2>
+    </div>
+    <div class="sg-demo">
+      <div class="tabs" data-tabs>
+        <div class="tabs__list" role="tablist">
+          <button class="tabs__tab tabs__tab--active" data-tab="t1" role="tab" aria-selected="true">Overview</button>
+          <button class="tabs__tab" data-tab="t2" role="tab" aria-selected="false">Features</button>
+          <button class="tabs__tab" data-tab="t3" role="tab" aria-selected="false">Pricing</button>
+        </div>
+        <div class="tabs__panel" data-panel="t1">A token-driven system that ports 1:1 into Etch.</div>
+        <div class="tabs__panel" data-panel="t2" hidden>Buttons, cards, forms, alerts, tabs, accordions &amp; more.</div>
+        <div class="tabs__panel" data-panel="t3" hidden>Use the pricing cards above as a starting block.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ACCORDION ===================== -->
+  <section class="sg-wrap sg-section" data-screen-label="Accordion">
+    <div class="sg-section__head">
+      <span class="sg-section__num">11 — ACCORDION / FAQ</span>
+      <h2 class="sg-section__title">Accordion</h2>
+    </div>
+    <div class="accordion" data-accordion>
+      <div class="accordion__item" data-open="true">
+        <button class="accordion__trigger" data-accordion-trigger>What is this design system? <span class="accordion__icon">▾</span></button>
+        <div class="accordion__panel"><div class="accordion__panel-inner"><p>A brand-agnostic, ACSS-based component layer that you reuse across web projects and port directly into Etch.</p></div></div>
+      </div>
+      <div class="accordion__item">
+        <button class="accordion__trigger" data-accordion-trigger>How does it relate to the brand design system? <span class="accordion__icon">▾</span></button>
+        <div class="accordion__panel"><div class="accordion__panel-inner"><p>This layer owns structure &amp; behaviour; the brand layer owns colour, type &amp; iconography. They run in parallel.</p></div></div>
+      </div>
+      <div class="accordion__item">
+        <button class="accordion__trigger" data-accordion-trigger>Is it GDPR-friendly? <span class="accordion__icon">▾</span></button>
+        <div class="accordion__panel"><div class="accordion__panel-inner"><p>Yes — fonts, icons and scripts are all self-hosted. No external requests at runtime.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TABLE ===================== -->
+  <section class="sg-wrap sg-section" data-screen-label="Tables">
+    <div class="sg-section__head">
+      <span class="sg-section__num">12 — TABLES</span>
+      <h2 class="sg-section__title">Tables &amp; comparison</h2>
+    </div>
+    <div class="sg-demo sg-demo--plain" style="overflow-x:auto">
+      <table class="table table--compare">
+        <thead><tr><th>Feature</th><th>Starter</th><th>Pro</th><th>Agency</th></tr></thead>
+        <tbody>
+          <tr><td>Projects</td><td>1</td><td>Unlimited</td><td>Unlimited</td></tr>
+          <tr><td>Brand tokens</td><td class="table__no">—</td><td class="table__yes">✓</td><td class="table__yes">✓</td></tr>
+          <tr><td>Priority support</td><td class="table__no">—</td><td class="table__yes">✓</td><td class="table__yes">✓</td></tr>
+          <tr><td>White-label</td><td class="table__no">—</td><td class="table__no">—</td><td class="table__yes">✓</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===================== HEADER / NAV ===================== -->
+  <section class="sg-wrap sg-section" data-screen-label="Header">
+    <div class="sg-section__head">
+      <span class="sg-section__num">13 — HEADER / NAV</span>
+      <h2 class="sg-section__title">Site header &amp; navigation</h2>
+      <p class="sg-section__desc">Resize the preview below ~860px to see the mobile dropdown (the hamburger toggles <span class="sg-code">[data-nav-open]</span>).</p>
+    </div>
+    <div class="sg-demo sg-demo--plain" style="border:1px solid color-mix(in srgb, var(--neutral) 18%, transparent); border-radius: var(--radius); overflow:hidden">
+      <header class="site-header header--s" data-nav-host>
+        <div class="site-header__inner">
+          <span class="site-header__brand"><span class="sg-topbar__mark">◆</span> Brand</span>
+          <nav class="nav">
+            <ul class="nav__list">
+              <li class="nav__item"><a class="nav__link" href="#" aria-current="page">Home</a></li>
+              <li class="nav__item"><a class="nav__link" href="#">Features</a></li>
+              <li class="nav__item"><a class="nav__link" href="#">Pricing</a></li>
+              <li class="nav__item"><a class="nav__link" href="#">Contact</a></li>
+            </ul>
+            <a class="btn--primary btn--s" href="#">Get started</a>
+            <button class="nav__toggle" data-nav-toggle aria-label="Menu">☰</button>
+          </nav>
+        </div>
+      </header>
+    </div>
+  </section>
+
+  <!-- ===================== HERO ===================== -->
+  <section class="sg-wrap sg-section" data-screen-label="Hero">
+    <div class="sg-section__head">
+      <span class="sg-section__num">14 — HERO</span>
+      <h2 class="sg-section__title">Hero sections</h2>
+    </div>
+
+    <div class="sg-block">
+      <span class="sg-label">.hero--split</span>
+      <div class="sg-demo">
+        <div class="hero hero--split">
+          <div class="hero__inner">
+            <div class="hero__content">
+              <span class="eyebrow">Parallel to your brand</span>
+              <h2 class="hero__title">Ship Etch sites faster</h2>
+              <p class="hero__text">Claude already speaks your CSS language — design hands off to Etch with zero translation.</p>
+              <div class="hero__actions"><a class="btn--primary" href="#">Get started</a><a class="btn--primary btn--outline" href="#">Docs</a></div>
+            </div>
+            <div class="hero__media"><img src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=720&q=70" alt="" /></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sg-block">
+      <span class="sg-label">.hero--centered</span>
+      <div class="sg-demo">
+        <div class="hero hero--centered">
+          <div class="hero__inner">
+            <div class="hero__content">
+              <span class="eyebrow">One source of truth</span>
+              <h2 class="hero__title">A standard for every project</h2>
+              <p class="hero__text">Reusable, token-driven, RTL-safe and 100% local.</p>
+              <div class="hero__actions"><a class="btn--primary" href="#">Start now</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== DARK SCHEME ===================== -->
+  <section class="sg-wrap sg-section" data-screen-label="Dark scheme">
+    <div class="sg-section__head">
+      <span class="sg-section__num">15 — COLOR SCHEMES</span>
+      <h2 class="sg-section__title">Light &amp; dark contexts</h2>
+      <p class="sg-section__desc">ACSS resolves text, heading &amp; button colours <em>contextually</em> from the section background utility (<span class="sg-code">.bg--ultra-light</span> / <span class="sg-code">.bg--ultra-dark</span>). The same markup adapts to either scheme.</p>
+    </div>
+    <div class="grid--2" style="gap: var(--space-m)">
+      <div class="bg--ultra-light" style="padding: var(--space-l); border-radius: var(--radius)">
+        <h3 class="h4">Light context</h3>
+        <p>Body text resolves to dark. Headings stay legible automatically.</p>
+        <div class="sg-rowwrap" style="margin-block-start: var(--space-s)"><a class="btn--primary" href="#">Primary</a><span class="badge">Badge</span></div>
+      </div>
+      <div class="bg--ultra-dark" style="padding: var(--space-l); border-radius: var(--radius)">
+        <h3 class="h4">Dark context</h3>
+        <p>Same markup — ACSS flips text &amp; heading colours to light via contextual relationship tokens.</p>
+        <div class="sg-rowwrap" style="margin-block-start: var(--space-s)"><a class="btn--primary" href="#">Primary</a><span class="badge">Badge</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="bg--ultra-dark" style="padding-block: var(--section-space-m); padding-inline: var(--gutter)">
+    <div class="site-footer">
+      <div class="site-footer__inner">
+        <div class="site-footer__brand">
+          <span class="site-footer__logo"><span class="sg-topbar__mark">◆</span> Design System</span>
+          <p class="text--s">A token-driven layer for Etch + WordPress.</p>
+        </div>
+        <div class="site-footer__col"><span class="site-footer__title">Product</span><ul><li><a href="#">Components</a></li><li><a href="#">Tokens</a></li><li><a href="#">Changelog</a></li></ul></div>
+        <div class="site-footer__col"><span class="site-footer__title">Docs</span><ul><li><a href="ACSS Setup Guide.dc.html">ACSS Setup</a></li><li><a href="Etch Snippets.dc.html">Etch Snippets</a></li></ul></div>
+        <div class="site-footer__col"><span class="site-footer__title">Legal</span><ul><li><a href="#">Imprint</a></li><li><a href="#">Privacy</a></li></ul></div>
+      </div>
+      <div class="site-footer__bottom"><span>© 2026 — Design System</span><span>Built on Automatic.css · Etch-ready</span></div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  componentDidMount() {
+    const root = this.el || document;
+    const scope = root.querySelector ? root : document;
+
+    scope.addEventListener("click", (e) => {
+      // --- Tabs ---
+      const tab = e.target.closest("[data-tab]");
+      if (tab) {
+        const wrap = tab.closest("[data-tabs]");
+        wrap.querySelectorAll("[data-tab]").forEach((t) => {
+          const on = t === tab;
+          t.classList.toggle("tabs__tab--active", on);
+          t.setAttribute("aria-selected", on ? "true" : "false");
+        });
+        const id = tab.getAttribute("data-tab");
+        wrap.querySelectorAll("[data-panel]").forEach((p) => {
+          p.hidden = p.getAttribute("data-panel") !== id;
+        });
+        return;
+      }
+
+      // --- Accordion ---
+      const trig = e.target.closest("[data-accordion-trigger]");
+      if (trig) {
+        const item = trig.closest(".accordion__item");
+        const open = item.getAttribute("data-open") === "true";
+        item.setAttribute("data-open", open ? "false" : "true");
+        return;
+      }
+
+      // --- Mobile nav ---
+      const navBtn = e.target.closest("[data-nav-toggle]");
+      if (navBtn) {
+        const host = navBtn.closest("[data-nav-host]");
+        const open = host.getAttribute("data-nav-open") === "true";
+        host.setAttribute("data-nav-open", open ? "false" : "true");
+        return;
+      }
+
+      // --- Removable tags ---
+      const rm = e.target.closest(".tag__remove");
+      if (rm) {
+        const t = rm.closest(".tag");
+        if (t) t.remove();
+      }
+    });
+  }
+
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>
