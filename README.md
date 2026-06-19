@@ -62,7 +62,11 @@ Unlayered CSS always beats `@layer`-ed CSS, so ACSS and our components override 
 
 ---
 
-## 3 · Colour scheme — contextual
+## 3 · Buttons — always from the ACSS engine
+
+Never hand-roll a button. Use `.btn--primary` / `.btn--secondary` (+ `-dark`/`-light`), sizes `.btn--xs … .btn--xl`, and the `.btn--outline` modifier. To extend, set the `--btn-*` variables only — don't re-declare base rules (e.g. `.btn--tertiary { --btn-background: var(--tertiary); … }` in `components.css`). Custom styling feeds the same `--btn-*` tokens so ACSS stays the single source of truth.
+
+## 4 · Colour scheme — contextual
 
 ACSS resolves text / heading / button colour **contextually** from the section background utility (`.bg--ultra-light` … `.bg--ultra-dark`). The same markup adapts to light or dark with no extra classes.
 
@@ -70,13 +74,13 @@ The palette in this project is a **reference palette** — the brand design syst
 
 ---
 
-## 4 · Fonts (reference pairing)
+## 5 · Fonts (reference pairing)
 
 Self-hosted, swappable. Heading = **Clash Grotesk** (variable woff2), body = native system stack. The brand layer overrides both with two custom-property changes in `assets/css/fonts.css`. No external font requests at runtime.
 
 ---
 
-## 5 · How to use on a new project
+## 6 · How to use on a new project
 
 1. Configure ACSS in the WP dashboard using **ACSS Dashboard Values** (or the **Setup Guide**).
 2. Paste `components.css` into Etch's global custom CSS.

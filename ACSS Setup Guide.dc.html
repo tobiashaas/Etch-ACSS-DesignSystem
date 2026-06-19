@@ -327,6 +327,18 @@ Dark  relationship Heading+Text = light  · Button = Primary · Icon = dark</div
     <div class="step">
       <div class="step__n">8</div>
       <div class="step__body">
+        <h2 class="step__title">Non-default framework settings</h2>
+        <p>Most of <span class="code">Buttons &amp; Links</span>, <span class="code">Borders &amp; Dividers</span>, <span class="code">Shadows</span>, <span class="code">Cards</span> and <span class="code">Icons</span> stay at ACSS defaults — leave them. This system overrides only <strong>three</strong> values; enter exactly these for a 1:1 match:</p>
+        <div class="codeblock">Buttons &amp; Links     Block Padding   1em      (default .5em)
+                    Inline Padding  1.75em   (default 1.25em)
+Borders &amp; Dividers  Base Radius     8px      (default 5px)  → feeds --radius</div>
+        <p>Everything else already matches the defaults: button Min-Width 140px · Font-Size <span class="code">--text-m</span> · Weight 400 · Border 1.5px solid · Radius <span class="code">var(--radius)</span>; shadows 1/2/3; border size/style. Button <em>colours</em> come automatically from the palette/contextual system. Build buttons with <span class="code">.btn--primary</span>/<span class="code">--secondary</span> (+ <span class="code">.btn--outline</span>, sizes <span class="code">.btn--xs…xl</span>) — extend only via the <span class="code">--btn-*</span> variables.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step__n">9</div>
+      <div class="step__body">
         <h2 class="step__title">Generate &amp; verify</h2>
         <p>Save the dashboard — ACSS (re)generates <span class="code">automatic.css</span>. Open any page in Etch; sections and containers receive their <span class="code">data-etch-element</span> attributes and ACSS styling applies automatically.</p>
         <div class="alert alert--success">

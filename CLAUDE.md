@@ -68,6 +68,17 @@ for static structure/layout. (Etch native components carry their own a11y/JS.)
    you build *with the system* — ACSS tokens + our components, never hard-coded
    colours/sizes. Picking and omitting tokens is expected; bypassing them is not.
 
+## Buttons
+Buttons ALWAYS come from the ACSS button engine — never hand-roll a button.
+- Use the classes: `.btn--primary` / `.btn--secondary` (+ `-dark`/`-light`
+  variants), sizes `.btn--xs … .btn--xl`, and the modifier `.btn--outline`.
+- To extend (e.g. a new colour), set the `--btn-*` variables only — never
+  re-declare button base rules. Canonical example in `components.css`:
+  `.btn--tertiary { --btn-background: var(--tertiary); … }`.
+- Custom one-off styling = add your own rules that feed the `--btn-*` tokens
+  (`--btn-background`, `--btn-text-color`, `--btn-border-*`, `--btn-padding-*`,
+  `--btn-radius`, …), so the ACSS engine stays the single source of truth.
+
 ## Color scheme
 ACSS resolves text/heading/button colour contextually from the section
 background utility (`.bg--ultra-light` … `.bg--ultra-dark`). Same markup adapts.
