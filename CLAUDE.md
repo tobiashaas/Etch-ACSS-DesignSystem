@@ -13,11 +13,15 @@ owns **colour, type & iconography**. Goal: designs port 1:1 into **Etch (WordPre
 - `assets/css/automatic.css` — full ACSS v4 framework (unlayered, reference)
 - `assets/css/fonts.css` — self-hosted font @font-face + family overrides
 - `assets/css/components.css` — our BEM components (unlayered, no prefix)
+- `assets/css/brand.css` — brand layer (unlayered, LAST): `:root` token
+  overrides only (colour/type/shape). Currently a DEMO brand — replace per
+  project. Never put component rules here.
 
 ## Load order (mirrors live WordPress + Etch)
 `etch-reset` → `etch-defaults` (both @layer) → `automatic.css` → `fonts.css`
-→ `components.css` (all unlayered). Unlayered CSS beats @layer-ed CSS, so ACSS
-and our components override the Etch defaults with no specificity hacks.
+→ `components.css` → `brand.css` (all unlayered). Unlayered CSS beats @layer-ed
+CSS, so ACSS and our components override the Etch defaults with no specificity
+hacks; `brand.css` loads last and re-themes the system purely via `:root` tokens.
 
 ## Authoring rules (NON-NEGOTIABLE)
 1. **Strict BEM** — `block__element--modifier`. No prefix on block names.

@@ -34,7 +34,8 @@ The live site is built in **Etch for WordPress** with **AutomaticCSS (ACSS) v4**
 @layer etch-defaults   ← Etch defaults
 automatic.css          ← ACSS framework (unlayered) ← overrides the layers
 fonts.css              ← font overrides (unlayered)
-components.css         ← our BEM blocks (unlayered) ← final say
+components.css         ← our BEM blocks (unlayered)
+brand.css              ← brand layer (unlayered) ← final say, :root tokens only
 ```
 
 Unlayered CSS always beats `@layer`-ed CSS, so ACSS and our components override the Etch defaults with **no specificity hacks** — exactly how it behaves on the live site.
