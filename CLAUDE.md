@@ -23,6 +23,18 @@ owns **colour, type & iconography**. Goal: designs port 1:1 into **Etch (WordPre
 CSS, so ACSS and our components override the Etch defaults with no specificity
 hacks; `brand.css` loads last and re-themes the system purely via `:root` tokens.
 
+Note: the `@layer` wrappers in `etch-reset`/`etch-defaults` are a **local
+preview device** to emulate an Etch-like baseline. Real Etch does NOT use
+`@layer` — it ships its reset/defaults as unlayered `:where()` rules at 0,0,0
+specificity (Etch core principle #6). We don't load these two files on the live
+site; there, Etch's own baseline + ACSS apply. Net cascade effect is the same.
+
+## Interactive components
+For **interactive** patterns (nav, accordion/FAQ, dialog/modal, tabs, drawer,
+carousel…), prefer Etch's **native components** (paste-as-JSON) and re-theme
+them via tokens, rather than shipping bespoke JS. Reserve our BEM components
+for static structure/layout. (Etch native components carry their own a11y/JS.)
+
 ## Authoring rules (NON-NEGOTIABLE)
 1. **Strict BEM** — `block__element--modifier`. No prefix on block names.
 2. **Native CSS nesting** — `&:hover`, `& svg`, contextual nesting. No SCSS.

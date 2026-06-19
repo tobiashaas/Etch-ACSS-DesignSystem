@@ -27,18 +27,24 @@ The live site is built in **Etch for WordPress** with **AutomaticCSS (ACSS) v4**
 - `ACSS Dashboard Values` — the exact palette (HEX) + shade L/C + type/spacing values to enter in the ACSS dashboard
 - `Etch Snippets` — framework-free, paste-into-Etch sections
 
-### Load order (mirrors live WordPress + Etch)
+### Load order (emulates an Etch-like baseline)
 
 ```
-@layer etch-reset      ← WordPress/Etch reset      (lowest)
-@layer etch-defaults   ← Etch defaults
+@layer etch-reset      ← reset (preview emulation)  (lowest)
+@layer etch-defaults   ← defaults (preview emulation)
 automatic.css          ← ACSS framework (unlayered) ← overrides the layers
 fonts.css              ← font overrides (unlayered)
 components.css         ← our BEM blocks (unlayered)
 brand.css              ← brand layer (unlayered) ← final say, :root tokens only
 ```
 
-Unlayered CSS always beats `@layer`-ed CSS, so ACSS and our components override the Etch defaults with **no specificity hacks** — exactly how it behaves on the live site.
+> The `@layer` wrappers on `etch-reset`/`etch-defaults` are a **local preview
+> device**, not a copy of Etch's mechanism. Real Etch ships its reset/defaults
+> as unlayered `:where()` rules at **0,0,0 specificity** (core principle #6),
+> not as CSS `@layer`. These two files are not loaded on the live site — there,
+> Etch's own baseline + ACSS apply. The net cascade effect is identical.
+
+Unlayered CSS always beats `@layer`-ed CSS, so ACSS and our components override the Etch defaults with **no specificity hacks** — the same net cascade result as the live site (where Etch's `:where()` 0,0,0 baseline is what ACSS + components override).
 
 ---
 

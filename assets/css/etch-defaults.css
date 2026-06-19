@@ -1,6 +1,9 @@
 /* ==========================================================================
-   Etch Defaults  —  mirrors Etch's low-priority default styling layer.
-   Lives in @layer etch-defaults: easy to override by ACSS + components.
+   Etch Defaults  —  emulates Etch's low-priority default styling for THIS
+   preview. On a live Etch site these defaults come from Etch itself as
+   unlayered :where() rules at 0,0,0 specificity (and section/container get
+   their flex/content-width behaviour from ACSS); we don't ship this file
+   there. Here it lives in @layer etch-defaults so ACSS + components win.
    ACSS sets the real body font via --text-font-family (unlayered, wins).
    ========================================================================== */
 @layer etch-defaults {
