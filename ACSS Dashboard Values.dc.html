@@ -1,0 +1,345 @@
+<!-- @dsCard group="Guides" title="ACSS Dashboard Values" subtitle="Interactive ACSS-panel clone, click-to-copy" -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="assets/css/etch-reset.css" />
+  <link rel="stylesheet" href="assets/css/etch-defaults.css" />
+  <link rel="stylesheet" href="assets/css/automatic.css" />
+  <link rel="stylesheet" href="assets/css/fonts.css" />
+  <link rel="stylesheet" href="assets/css/components.css" />
+  <link rel="stylesheet" href="assets/css/brand.css" />
+  <style>
+    body { background: #0a0e14; }
+    .sg-topbar { position: sticky; inset-block-start: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 12px; padding-inline: 28px; background: color-mix(in srgb, #0a0e14 86%, transparent); backdrop-filter: blur(10px); border-block-end: 1px solid #1e2731; }
+    .sg-topbar__brand { display: inline-flex; align-items: center; gap: .6rem; font-family: var(--heading-font-family); font-weight: 600; font-size: 17px; color: #e6eaf0; }
+    .sg-topbar__mark { display: grid; place-items: center; inline-size: 2rem; block-size: 2rem; border-radius: 7px; background: var(--primary); color: #fff; font-size: .9rem; }
+    .sg-topbar__links { display: flex; gap: 6px; flex-wrap: wrap; }
+    .sg-topbar__link { font-size: 13px; color: #aeb8c4; text-decoration: none; padding-block: .4em; padding-inline: .8em; border-radius: 8px; transition: var(--transition); }
+    .sg-topbar__link:hover { background: #19222d; color: #eef2f7; }
+    .sg-topbar__link--active { background: var(--primary); color: #fff; }
+    .stage { min-block-size: 100vh; display: flex; flex-direction: column; align-items: center; gap: 22px; padding: 28px 24px 80px; box-sizing: border-box; background: radial-gradient(800px 520px at 50% -8%, #131c27 0%, #0a0e14 58%); }
+    .stage__cap { color: #7f8b99; font-family: system-ui; font-size: 13px; text-align: center; max-inline-size: 52ch; }
+    .stage__cap a { color: #4cc2c4; text-decoration: none; }
+    .stage__cap strong { color: #c2cbd6; font-weight: 600; }
+
+    /* ---- panel (matches the ACSS settings panel) ---- */
+    .p { inline-size: 340px; background: #0f151c; border: 1px solid #1e2731; border-radius: 14px; padding: 16px; color: #dfe5ec; font-family: system-ui, sans-serif; box-shadow: 0 30px 70px rgba(0,0,0,.55); }
+    .p__top { display: flex; align-items: center; gap: 9px; margin-block-end: 14px; }
+    .p__glyph { display: grid; place-items: center; inline-size: 24px; block-size: 24px; border-radius: 6px; background: #19222d; font-weight: 700; font-size: 12px; color: #aeb8c4; }
+    .p__name { font-size: 16px; font-weight: 600; letter-spacing: .01em; }
+    .p__dot { margin-inline-start: auto; inline-size: 8px; block-size: 8px; border-radius: 50%; background: #36cf9b; }
+    .p__ico { display: grid; place-items: center; inline-size: 24px; block-size: 24px; border-radius: 6px; background: #161e28; color: #6c7embed; color: #6c7a89; font-size: 12px; }
+
+    .p__home { display: grid; grid-template-columns: 1fr; margin-block-end: 14px; }
+    .p__back { display: flex; align-items: center; gap: 7px; padding: 9px 12px; border-radius: 9px; background: #141c25; border: 1px solid #1e2731; color: #aeb8c4; font-size: 13px; font-weight: 600; text-align: start; }
+    .p__back:hover { color: #dfe5ec; }
+
+    .p__seg { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; background: #0a0f15; padding: 4px; border-radius: 9px; margin-block-end: 14px; }
+    .p__seg button { padding: 9px 8px; border-radius: 6px; font-size: 13px; font-weight: 600; color: #7f8b99; transition: var(--transition); }
+    .p__seg button.on { background: #19222d; color: #eef2f7; box-shadow: inset 0 0 0 1px #36cf9b44; }
+
+    .p__pills { display: flex; flex-wrap: wrap; gap: 4px; margin-block-end: 14px; }
+    .p__pills button { padding: 6px 10px; border-radius: 7px; font-size: 12px; font-weight: 600; color: #7f8b99; background: #0c121a; border: 1px solid #1c2530; transition: var(--transition); }
+    .p__pills button.on { color: #4cc2c4; border-color: #36cf9b88; background: #0d1c1c; }
+
+    .f { margin-block-end: 13px; }
+    .f__l { display: flex; align-items: center; gap: 7px; font-size: 12.5px; color: #b3bcc8; margin-block-end: 6px; }
+    .f__l::before { content: ""; inline-size: 6px; block-size: 6px; border-radius: 50%; background: #4cc2c4; flex: none; }
+    .f__l.np { color: #7f8b99; } .f__l.np::before { background: #38424e; }
+    .f__cap { margin-inline-start: auto; font-size: 11px; color: #5f6b79; font-weight: 400; }
+
+    .i { display: flex; align-items: center; justify-content: space-between; gap: 8px; background: #161e28; border: 1px solid #232e3a; border-radius: 8px; padding: 10px 12px; font-size: 13.5px; color: #eef2f7; cursor: copy; transition: var(--transition); }
+    .i:hover { border-color: #36cf9b88; }
+    .i .u { color: #5f6b79; font-size: 12px; cursor: auto; }
+    .i .cv { color: #5f6b79; }
+    .i.empty { color: #5f6b79; cursor: auto; } .i.empty:hover { border-color: #232e3a; }
+    .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+    .sw { inline-size: 16px; block-size: 16px; border-radius: 4px; border: 1px solid #ffffff22; flex: none; }
+
+    /* home nav rows */
+    .nav { display: flex; flex-direction: column; gap: 7px; }
+    .nav__row { display: flex; align-items: center; gap: 11px; padding: 12px 13px; border-radius: 9px; background: #141c25; border: 1px solid #1e2731; transition: var(--transition); }
+    .nav__row.click { cursor: pointer; } .nav__row.click:hover { border-color: #36cf9b88; background: #16212a; }
+    .nav__row.dis { opacity: .42; }
+    .nav__ic { display: grid; place-items: center; inline-size: 26px; block-size: 26px; border-radius: 7px; background: #19222d; font-size: 13px; color: #aeb8c4; }
+    .nav__t { font-size: 13.5px; font-weight: 600; color: #dfe5ec; }
+    .nav__s { font-size: 11.5px; color: #6c7a89; }
+    .nav__chev { margin-inline-start: auto; color: #5f6b79; font-size: 14px; }
+
+    .colr { display: flex; align-items: center; gap: 10px; padding: 8px 11px; background: #161e28; border: 1px solid #232e3a; border-radius: 8px; margin-block-end: 7px; cursor: copy; transition: var(--transition); }
+    .colr:hover { border-color: #36cf9b88; }
+    .colr .nm { font-size: 12.5px; color: #c5cdd8; }
+    .colr .hx { margin-inline-start: auto; font-family: ui-monospace, monospace; font-size: 12.5px; color: #eef2f7; }
+
+    .sub { margin-block-start: 13px; padding-block-start: 13px; border-block-start: 1px solid #1c2530; }
+    .sub h4 { font-size: 11px; color: #7f8b99; text-transform: uppercase; letter-spacing: .06em; margin-block-end: 9px; }
+    .sub h4 .lv { color: #4cc2c4; }
+    .grid3 { display: grid; grid-template-columns: auto 1fr 1fr; gap: 5px 10px; align-items: center; font-size: 11.5px; }
+    .grid3 .sq { inline-size: 13px; block-size: 13px; border-radius: 3px; border: 1px solid #ffffff1a; }
+    .grid3 .k { color: #6c7a89; font-family: ui-monospace, monospace; }
+    .grid3 .v { font-family: ui-monospace, monospace; color: #c5cdd8; text-align: end; }
+    .note { font-size: 11px; color: #5f6b79; margin-block-start: 8px; line-height: 1.55; }
+    [hidden] { display: none !important; }
+
+    .toast { position: fixed; inset-block-end: 26px; inset-inline-start: 50%; transform: translateX(-50%) translateY(16px); background: #36cf9b; color: #06231a; font-family: system-ui; font-weight: 600; font-size: 13px; padding: 10px 18px; border-radius: 10px; box-shadow: 0 12px 30px rgba(0,0,0,.4); opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s; z-index: 100; }
+    .toast.on { opacity: 1; transform: translateX(-50%) translateY(0); }
+  </style>
+</helmet>
+
+<header class="sg-topbar">
+  <span class="sg-topbar__brand"><span class="sg-topbar__mark">◆</span> Design System</span>
+  <nav class="sg-topbar__links">
+    <a class="sg-topbar__link" href="Overview.dc.html">Overview</a>
+    <a class="sg-topbar__link" href="Design System.dc.html">Styleguide</a>
+    <a class="sg-topbar__link" href="ACSS Setup Guide.dc.html">ACSS Setup</a>
+    <a class="sg-topbar__link sg-topbar__link--active" href="ACSS Dashboard Values.dc.html">Dashboard</a>
+    <a class="sg-topbar__link" href="Etch Snippets.dc.html">Etch Snippets</a>
+  </nav>
+</header>
+
+<div class="stage" data-root>
+  <p class="stage__cap"><a href="ACSS Setup Guide.dc.html">← Setup Guide</a> &nbsp;·&nbsp; Open <strong>Automatic.css</strong> in WordPress and transcribe these values. Navigate sections like the real panel; <strong>click any field to copy</strong>.</p>
+
+  <section class="p" data-panel>
+    <div class="p__top">
+      <span class="p__glyph" data-glyph>▦</span>
+      <span class="p__name" data-title>Dashboard</span>
+      <span class="p__dot"></span>
+      <span class="p__ico">⊘</span>
+      <span class="p__ico">✕</span>
+      <span class="p__ico">≡</span>
+    </div>
+
+    <div class="p__home" data-back-wrap hidden>
+      <button class="p__back" data-back>‹ &nbsp;Home</button>
+    </div>
+
+    <!-- ================= HOME ================= -->
+    <div data-view="home">
+      <div class="nav">
+        <div class="nav__row click" data-go="colors"><span class="nav__ic">◐</span><div><div class="nav__t">Colors</div><div class="nav__s">Palette &amp; shades</div></div><span class="nav__chev">›</span></div>
+        <div class="nav__row click" data-go="assign"><span class="nav__ic">◑</span><div><div class="nav__t">Color Assignments</div><div class="nav__s">Backgrounds &amp; relationships</div></div><span class="nav__chev">›</span></div>
+        <div class="nav__row click" data-go="typography"><span class="nav__ic">Aa</span><div><div class="nav__t">Typography</div><div class="nav__s">Headings &amp; text</div></div><span class="nav__chev">›</span></div>
+        <div class="nav__row click" data-go="layout"><span class="nav__ic">▤</span><div><div class="nav__t">Layout</div><div class="nav__s">Website dimensions</div></div><span class="nav__chev">›</span></div>
+        <div class="nav__row click" data-go="spacing"><span class="nav__ic">⇿</span><div><div class="nav__t">Spacing</div><div class="nav__s">Spacing &amp; sections</div></div><span class="nav__chev">›</span></div>
+        <div class="nav__row dis"><span class="nav__ic">▭</span><div><div class="nav__t">Buttons &amp; Links</div><div class="nav__s">Configured in framework</div></div></div>
+        <div class="nav__row dis"><span class="nav__ic">◳</span><div><div class="nav__t">Borders &amp; Dividers</div><div class="nav__s">Configured in framework</div></div></div>
+        <div class="nav__row dis"><span class="nav__ic">▢</span><div><div class="nav__t">Shadows · Cards · Icons</div><div class="nav__s">Configured in framework</div></div></div>
+      </div>
+      <p class="note">Values below are derived from this design system's <span style="font-family:ui-monospace,monospace">automatic.css</span> — i.e. the <strong>base ACSS palette</strong> you enter in WordPress. The styleguide preview also loads <span style="font-family:ui-monospace,monospace">brand.css</span> last, a replaceable <strong>demo brand layer</strong> (currently violet) that re-themes via <span style="font-family:ui-monospace,monospace">:root</span> tokens — so the live preview can differ from the blue base shown here. On a real project, set the brand palette in this dashboard (regenerating automatic.css) and/or via brand.css.</p>
+    </div>
+
+    <!-- ================= COLORS ================= -->
+    <div data-view="colors" hidden>
+      <div class="f__l" style="margin-block-end:8px">Base colours — enter as HEX</div>
+      <div class="colr"><span class="sw" style="background:#0F4BB3"></span><span class="nm">Primary</span><span class="hx">#0F4BB3</span></div>
+      <div class="colr"><span class="sw" style="background:#9D6400"></span><span class="nm">Secondary</span><span class="hx">#9D6400</span></div>
+      <div class="colr"><span class="sw" style="background:#87A330"></span><span class="nm">Tertiary</span><span class="hx">#87A330</span></div>
+      <div class="colr"><span class="sw" style="background:#BCC8A2"></span><span class="nm">Accent</span><span class="hx">#BCC8A2</span></div>
+      <div class="colr"><span class="sw" style="background:#1A2320"></span><span class="nm">Base</span><span class="hx">#1A2320</span></div>
+      <div class="colr"><span class="sw" style="background:#6B7280"></span><span class="nm">Neutral</span><span class="hx">#6B7280</span></div>
+      <div class="colr"><span class="sw" style="background:#26A746"></span><span class="nm">Success</span><span class="hx">#26A746</span></div>
+      <div class="colr"><span class="sw" style="background:#FFC108"></span><span class="nm">Warning</span><span class="hx">#FFC108</span></div>
+      <div class="colr"><span class="sw" style="background:#18A2B8"></span><span class="nm">Info</span><span class="hx">#18A2B8</span></div>
+      <div class="colr"><span class="sw" style="background:#DC3546"></span><span class="nm">Danger</span><span class="hx">#DC3546</span></div>
+      <div class="sub">
+        <h4>Primary — shade L / C (hue 261)</h4>
+        <div class="grid3">
+          <span class="sq" style="background:var(--primary-ultra-light)"></span><span class="k">ultra-light</span><span class="v">0.95 / 0.026</span>
+          <span class="sq" style="background:var(--primary-light)"></span><span class="k">light</span><span class="v">0.85 / 0.081</span>
+          <span class="sq" style="background:var(--primary-semi-light)"></span><span class="k">semi-light</span><span class="v">0.65 / 0.175</span>
+          <span class="sq" style="background:var(--primary)"></span><span class="k">base</span><span class="v">0.445 / 0.175</span>
+          <span class="sq" style="background:var(--primary-semi-dark)"></span><span class="k">semi-dark</span><span class="v">0.35 / 0.175</span>
+          <span class="sq" style="background:var(--primary-dark)"></span><span class="k">dark</span><span class="v">0.25 / 0.135</span>
+          <span class="sq" style="background:var(--primary-ultra-dark)"></span><span class="k">ultra-dark</span><span class="v">0.10 / 0.054</span>
+        </div>
+        <p class="note">L stops are global; enter each palette's base hex — hue locks per column. Full L/C tables for every palette are in the Setup Guide.</p>
+      </div>
+      <p class="note">Fixed: --white #FFFFFF · --black #000000. Page bg --body-bg #F7F5F1 (adjustable).</p>
+    </div>
+
+    <!-- ================= COLOR ASSIGNMENTS ================= -->
+    <div data-view="assign" hidden>
+      <div class="f__l" style="margin-block-end:8px">Backgrounds <span class="f__cap">Color Assignments → Backgrounds</span></div>
+      <div class="colr"><span class="sw" style="background:#F7F5F1"></span><span class="nm">Website (Body)</span><span class="hx">#F7F5F1</span></div>
+      <div class="f"><div class="f__l">Ultra Light</div><div class="i">Neutral · Ultra Light</div></div>
+      <div class="f"><div class="f__l">Light</div><div class="i">Neutral · Light</div></div>
+      <div class="f"><div class="f__l">Dark</div><div class="i">Neutral · Dark</div></div>
+      <div class="f"><div class="f__l">Ultra Dark</div><div class="i">Neutral · Ultra Dark</div></div>
+
+      <div class="sub">
+        <h4>Base text &amp; links</h4>
+        <div class="f"><div class="f__l">Heading Color</div><div class="i">Base · Dark&nbsp;&nbsp;(--text-dark)</div></div>
+        <div class="f"><div class="f__l">Text Color</div><div class="i">Neutral · Dark&nbsp;&nbsp;(--text-dark-muted)</div></div>
+        <div class="f"><div class="f__l">Link / Hover</div><div class="i">Primary / Primary Hover</div></div>
+      </div>
+
+      <div class="sub">
+        <h4>Light Relationships <span class="f__cap">on .bg--light / .bg--ultra-light</span></h4>
+        <div class="f"><div class="f__l">Heading / Text</div><div class="i">Dark (--text-dark)</div></div>
+        <div class="f"><div class="f__l">Button</div><div class="i">Primary</div></div>
+        <div class="f"><div class="f__l">Icon</div><div class="i">Light</div></div>
+      </div>
+
+      <div class="sub">
+        <h4>Dark Relationships <span class="f__cap">on .bg--dark / .bg--ultra-dark</span></h4>
+        <div class="f"><div class="f__l">Heading / Text</div><div class="i">Light (--text-light = White)</div></div>
+        <div class="f"><div class="f__l">Button</div><div class="i">Primary</div></div>
+        <div class="f"><div class="f__l">Icon</div><div class="i">Dark</div></div>
+      </div>
+      <p class="note">These power the contextual <span style="font-family:ui-monospace,monospace">.bg--*</span> system — the same markup adapts light/dark with no extra classes. Enter under <strong>Color Assignments → Backgrounds</strong> and <strong>→ Light / Dark Relationships</strong>.</p>
+    </div>
+
+    <!-- ================= TYPOGRAPHY ================= -->
+    <div data-view="typography" hidden>
+      <div class="f">
+        <div class="f__l np">Root Font Size <span class="f__cap">affects headings &amp; text</span></div>
+        <div class="i">100<span class="u">%</span></div>
+      </div>
+
+      <div class="p__seg"><button data-tab="headings" class="on">Headings</button><button data-tab="text">Text</button></div>
+
+      <div class="f">
+        <div class="f__l"><span data-role="baseLabel">Base Heading Size</span> <span class="f__cap">Mobile / Desktop</span></div>
+        <div class="duo"><div class="i"><span data-role="baseMob">20</span><span class="u">px</span></div><div class="i"><span data-role="baseDesk">24</span><span class="u">px</span></div></div>
+      </div>
+      <div class="f">
+        <div class="f__l">Type Scale <span class="f__cap">Mobile / Desktop</span></div>
+        <div class="duo"><div class="i" data-role="scaleMob">1.25</div><div class="i" data-role="scaleDesk">1.25</div></div>
+      </div>
+
+      <div class="p__pills" data-pills="headings"><button data-level="all" class="on">All</button><button data-level="h1">H1</button><button data-level="h2">H2</button><button data-level="h3">H3</button><button data-level="h4">H4</button><button data-level="h5">H5</button><button data-level="h6">H6</button></div>
+      <div class="p__pills" data-pills="text" hidden><button data-level="all" class="on">All</button><button data-level="xxl">2XL</button><button data-level="xl">XL</button><button data-level="l">L</button><button data-level="m">M</button><button data-level="s">S</button><button data-level="xs">XS</button></div>
+
+      <div data-group="all">
+        <div class="f"><div class="f__l">Font Family</div><div class="i"><span data-role="family">Clash Grotesk</span><span class="cv">▾</span></div></div>
+        <div class="f"><div class="f__l"><span data-role="colorLabel">Heading Color</span></div><div class="i"><span style="display:flex;align-items:center;gap:8px"><span class="sw" data-role="colorSwatch" style="background:var(--text-dark)"></span><span data-role="colorVal">--text-dark</span></span></div></div>
+        <div class="f"><div class="f__l">Line Height</div><div class="i" data-role="lh">calc(4px + 2ex)</div></div>
+        <div class="f"><div class="f__l">Font Weight</div><div class="i"><span data-role="weight">600</span><span class="cv">▾</span></div></div>
+        <div class="f"><div class="f__l"><span data-role="extraLabel">Letter Spacing</span></div><div class="i" data-role="extraVal">0</div></div>
+        <div class="f" style="margin-block-end:0"><div class="f__l">Text Wrap</div><div class="i"><span>Pretty</span><span class="cv">▾</span></div></div>
+      </div>
+
+      <div data-group="level" hidden>
+        <div class="sub" style="margin-block-start:0;padding-block-start:0;border:0"><h4>Overrides — <span class="lv" data-role="lvlName">H1</span></h4></div>
+        <div class="f"><div class="f__l np">Line Height</div><div class="i empty">—</div></div>
+        <div class="f"><div class="f__l np">Font Weight</div><div class="i empty"><span>—</span><span class="cv">▾</span></div></div>
+        <div class="f"><div class="f__l np">Letter Spacing</div><div class="i empty">—</div></div>
+        <div class="f"><div class="f__l np">Max-Width</div><div class="i empty">—</div></div>
+        <div class="f"><div class="f__l np">Text Transform</div><div class="i empty"><span>—</span><span class="cv">▾</span></div></div>
+        <div class="f">
+          <div class="f__l">Font Size Override <span class="f__cap">Mobile / Desktop</span></div>
+          <div class="duo"><div class="i"><span data-role="ovrMob">39.1</span><span class="u">px</span></div><div class="i"><span data-role="ovrDesk">46.9</span><span class="u">px</span></div></div>
+        </div>
+        <p class="note">Only fill these if the formula can't reach the target value. Root 16px · 360 / 1200px.</p>
+      </div>
+    </div>
+
+    <!-- ================= LAYOUT ================= -->
+    <div data-view="layout" hidden>
+      <div class="f__l" style="margin-block-end:8px">Website Dimensions <span class="f__cap">Layout → Website Dimensions</span></div>
+      <div class="f"><div class="f__l">Content Width <span class="f__cap">max line length · px</span></div><div class="i">1200<span class="u">px</span></div></div>
+      <div class="f"><div class="f__l">Minimum Width <span class="f__cap">bottom of fluid range · px</span></div><div class="i">360<span class="u">px</span></div></div>
+      <p class="note" style="margin-block-start:-4px">Enter px — ACSS stores rem (1200px = 75rem). v4 is breakpoint-free; the fluid <span style="font-family:ui-monospace,monospace">clamp()</span> range is derived from these two. <em>(ACSS default Content Width is 1366; this system uses 1200.)</em></p>
+    </div>
+
+    <!-- ================= SPACING ================= -->
+    <div data-view="spacing" hidden>
+      <div class="f__l" style="margin-block-end:8px">Standard Spacing <span class="f__cap">Spacing → Standard Spacing</span></div>
+      <div class="f"><div class="f__l">Base Spacing (M) <span class="f__cap">Mobile / Desktop · px</span></div><div class="duo"><div class="i">20<span class="u">px</span></div><div class="i">24<span class="u">px</span></div></div></div>
+      <div class="f"><div class="f__l">Base Scale <span class="f__cap">Mobile / Desktop</span></div><div class="duo"><div class="i">1.5</div><div class="i">1.5</div></div></div>
+      <div class="sub">
+        <h4>Section Spacing</h4>
+        <div class="f"><div class="f__l">Gutter <span class="f__cap">Min / Max · px</span></div><div class="duo"><div class="i">16<span class="u">px</span></div><div class="i">80<span class="u">px</span></div></div></div>
+        <div class="f"><div class="f__l">Section Base (M) <span class="f__cap">Mobile / Desktop</span></div><div class="duo"><div class="i">40<span class="u">px</span></div><div class="i">72<span class="u">px</span></div></div></div>
+        <div class="f" style="margin-block-end:0"><div class="f__l">Section Scale <span class="f__cap">Mobile / Desktop</span></div><div class="duo"><div class="i">1.5</div><div class="i">1.5</div></div></div>
+      </div>
+    </div>
+
+  </section>
+
+  <div class="toast" data-toast>Copied</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  componentDidMount() {
+    const root = this.el && this.el.querySelector ? this.el : document;
+    const $ = (s, c) => (c || root).querySelector(s);
+    const $$ = (s, c) => [...(c || root).querySelectorAll(s)];
+
+    const panel = $("[data-panel]");
+    const TITLES = { home: ["▦", "Dashboard"], colors: ["◐", "Colors (Palette)"], assign: ["◑", "Color Assignments"], typography: ["Aa", "Typography"], layout: ["▤", "Layout"], spacing: ["⇿", "Spacing"] };
+
+    const DATA = {
+      headings: { baseLabel: "Base Heading Size", base: [20, 24], scale: [1.25, 1.25], family: "Clash Grotesk", colorLabel: "Heading Color", colorVal: "--text-dark", colorSwatch: "var(--text-dark)", lh: "calc(4px + 2ex)", weight: "600", extraLabel: "Letter Spacing", extraVal: "0", sizes: { h1: [39.1, 46.9], h2: [31.3, 37.5], h3: [25, 30], h4: [20, 24], h5: [14, 15], h6: [13, 14] } },
+      text: { baseLabel: "Base Text Size", base: [16, 17], scale: [1.2, 1.2], family: "System stack", colorLabel: "Default Text Color", colorVal: "--text-dark-muted", colorSwatch: "var(--text-dark-muted)", lh: "calc(6px + 2ex)", weight: "400", extraLabel: "Max-Width", extraVal: "100%", sizes: { xxl: [27.6, 29.4], xl: [23, 24.5], l: [19.2, 20.4], m: [16, 17], s: [14, 15], xs: [13, 14] } },
+    };
+    let tab = "headings";
+    const setText = (role, val) => { const el = $('[data-role="' + role + '"]', panel); if (el) el.textContent = val; };
+
+    function showView(v) {
+      $$("[data-view]", panel).forEach((el) => (el.hidden = el.dataset.view !== v));
+      const g = $("[data-glyph]", panel), t = $("[data-title]", panel);
+      if (TITLES[v]) { g.textContent = TITLES[v][0]; t.textContent = TITLES[v][1]; }
+      $("[data-back-wrap]", panel).hidden = v === "home";
+      if (v === "typography") setTab("headings");
+    }
+    function renderAll(d) {
+      setText("baseLabel", d.baseLabel); setText("baseMob", d.base[0]); setText("baseDesk", d.base[1]);
+      setText("scaleMob", d.scale[0]); setText("scaleDesk", d.scale[1]); setText("family", d.family);
+      setText("colorLabel", d.colorLabel); setText("colorVal", d.colorVal);
+      const sw = $('[data-role="colorSwatch"]', panel); if (sw) sw.style.background = d.colorSwatch;
+      setText("lh", d.lh); setText("weight", d.weight); setText("extraLabel", d.extraLabel); setText("extraVal", d.extraVal);
+    }
+    function setLevel(level) {
+      const d = DATA[tab];
+      $("[data-group=\"all\"]", panel).hidden = level !== "all";
+      $("[data-group=\"level\"]", panel).hidden = level === "all";
+      if (level !== "all") { const v = d.sizes[level] || ["—", "—"]; setText("ovrMob", v[0]); setText("ovrDesk", v[1]); setText("lvlName", level.toUpperCase()); }
+      const pills = $('[data-pills="' + tab + '"]', panel);
+      $$("button", pills).forEach((b) => b.classList.toggle("on", b.dataset.level === level));
+    }
+    function setTab(t) {
+      tab = t; renderAll(DATA[t]);
+      $$("[data-tab]", panel).forEach((b) => b.classList.toggle("on", b.dataset.tab === t));
+      $$("[data-pills]", panel).forEach((w) => (w.hidden = w.dataset.pills !== t));
+      setLevel("all");
+    }
+
+    const toast = $("[data-toast]");
+    let tt;
+    function showToast(msg) { toast.textContent = msg; toast.classList.add("on"); clearTimeout(tt); tt = setTimeout(() => toast.classList.remove("on"), 1400); }
+    function copy(text) {
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).catch(() => {});
+      else { const a = document.createElement("textarea"); a.value = text; document.body.appendChild(a); a.select(); try { document.execCommand("copy"); } catch (e) {} a.remove(); }
+      showToast("Copied  " + text);
+    }
+
+    root.addEventListener("click", (e) => {
+      const go = e.target.closest("[data-go]"); if (go) { showView(go.dataset.go); return; }
+      const back = e.target.closest("[data-back]"); if (back) { showView("home"); return; }
+      const tb = e.target.closest("[data-tab]"); if (tb) { setTab(tb.dataset.tab); return; }
+      const lv = e.target.closest("[data-level]"); if (lv) { setLevel(lv.dataset.level); return; }
+      const cr = e.target.closest(".colr"); if (cr) { const h = $(".hx", cr); if (h) copy(h.textContent.trim()); return; }
+      const inp = e.target.closest(".i");
+      if (inp && !inp.classList.contains("empty")) {
+        const c = inp.cloneNode(true); $$(".u, .cv", c).forEach((x) => x.remove());
+        const val = c.textContent.trim(); if (val && val !== "—") copy(val);
+      }
+    });
+
+    showView("home");
+  }
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

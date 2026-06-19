@@ -1,0 +1,68 @@
+/* ==========================================================================
+   BRAND LAYER  —  EXAMPLE / DEMO  ("Aurora" reference brand)
+   ==========================================================================
+   ⚠️  This is a DEMO brand layer, here to show the mechanism. Replace every
+       value below with the real brand — nothing else in the system changes,
+       because every component references tokens (never hard-coded values).
+
+   ▸ Load order: this file is UNLAYERED and loads LAST (after components.css),
+     so its :root overrides win over ACSS + fonts.css with no specificity hacks.
+   ▸ It ONLY redefines :root tokens. It must never contain component rules —
+     structure & behaviour stay in components.css / ACSS.
+   ▸ 100% local (DSGVO): if the brand needs a custom font, self-host it via the
+     commented @font-face template below. No CDN / Google Fonts at runtime.
+
+   How the ACSS palette works: each colour is a fixed shade ladder in
+   oklch(L C H) — L = lightness, C = chroma, H = hue. To re-theme safely, keep
+   each shade's L and C (so the contextual light/dark contrast keeps working)
+   and shift only the hue. Here: primary 261 → 295 (violet), secondary 72 → 25
+   (coral). Swap these for the real brand hues, or paste the exact HEX/oklch
+   values the brand provides.
+   ========================================================================== */
+
+:root {
+  /* ---- Primary — DEMO violet (was ACSS blue, hue 261) ------------------- */
+  --primary:             oklch(0.445 0.175 295);
+  --primary-hover:       oklch(0.512 0.175 295);
+  --primary-ultra-light: oklch(0.95  0.026 295);
+  --primary-light:       oklch(0.85  0.081 295);
+  --primary-semi-light:  oklch(0.65  0.175 295);
+  --primary-semi-dark:   oklch(0.35  0.175 295);
+  --primary-dark:        oklch(0.25  0.135 295);
+  --primary-ultra-dark:  oklch(0.1   0.054 295);
+
+  /* ---- Secondary — DEMO coral (was ACSS amber, hue 72) ------------------ */
+  --secondary:             oklch(0.5517 0.1249 25);
+  --secondary-hover:       oklch(0.634  0.125  25);
+  --secondary-ultra-light: oklch(0.95   0.048  25);
+  --secondary-light:       oklch(0.85   0.125  25);
+  --secondary-semi-light:  oklch(0.65   0.125  25);
+  --secondary-semi-dark:   oklch(0.35   0.086  25);
+  --secondary-dark:        oklch(0.25   0.061  25);
+  --secondary-ultra-dark:  oklch(0.1    0.024  25);
+
+  /* ---- Brand shape token (optional) ------------------------------------- */
+  --radius: 12px;
+
+  /* ---- Typography (optional) -------------------------------------------
+     The reference heading face (Clash Grotesk) stays local & in place. To
+     give the brand its own typeface, self-host the woff2 in assets/fonts/,
+     uncomment the @font-face below, and point the token at it. ----------- */
+  /* --heading-font-weight: 600; */
+}
+
+/* ----------------------------------------------------------------------------
+   Brand font template — self-hosted only (DSGVO). Uncomment + adjust.
+   ----------------------------------------------------------------------------
+@font-face {
+  font-family: "Brand Sans";
+  src: url("../fonts/BrandSans-Variable.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-display: swap;
+  font-style: normal;
+}
+:root {
+  --heading-font-family: "Brand Sans", system-ui, sans-serif;
+  --text-font-family:    "Brand Sans", ui-sans-serif, system-ui, sans-serif;
+}
+---------------------------------------------------------------------------- */

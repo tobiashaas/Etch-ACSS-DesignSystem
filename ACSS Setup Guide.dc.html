@@ -1,0 +1,356 @@
+<!-- @dsCard group="Guides" title="ACSS Setup Guide" subtitle="Step-by-step ACSS dashboard configuration" -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="assets/css/etch-reset.css" />
+  <link rel="stylesheet" href="assets/css/etch-defaults.css" />
+  <link rel="stylesheet" href="assets/css/automatic.css" />
+  <link rel="stylesheet" href="assets/css/fonts.css" />
+  <link rel="stylesheet" href="assets/css/components.css" />
+  <link rel="stylesheet" href="assets/css/brand.css" />
+  <style>
+    body { background: var(--body-bg-color); color: var(--text-color); }
+    .sg-topbar { position: sticky; inset-block-start: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; gap: var(--space-m); padding-block: var(--space-s); padding-inline: var(--gutter); background: color-mix(in srgb, var(--body-bg-color) 86%, transparent); backdrop-filter: blur(10px); border-block-end: 1px solid color-mix(in srgb, var(--neutral) 18%, transparent); }
+    .sg-topbar__brand { display: inline-flex; align-items: center; gap: .6rem; font-family: var(--heading-font-family); font-weight: 600; font-size: var(--text-l); color: var(--heading-color); }
+    .sg-topbar__mark { display: grid; place-items: center; inline-size: 2rem; block-size: 2rem; border-radius: 7px; background: var(--primary); color: #fff; font-size: .9rem; }
+    .sg-topbar__links { display: flex; gap: var(--space-s); flex-wrap: wrap; }
+    .sg-topbar__link { font-size: var(--text-s); color: var(--text-color); text-decoration: none; padding-block: .4em; padding-inline: .8em; border-radius: var(--radius); transition: var(--transition); }
+    .sg-topbar__link:hover { background: color-mix(in srgb, var(--neutral) 12%, transparent); color: var(--heading-color); }
+    .sg-topbar__link--active { background: var(--primary); color: #fff; }
+
+    .doc { inline-size: 100%; max-inline-size: 52rem; margin-inline: auto; padding-inline: var(--gutter); padding-block: var(--section-space-s); }
+    .doc__hero { margin-block-end: var(--space-xl); }
+    .doc__kicker { font-family: var(--heading-font-family); font-size: var(--text-s); letter-spacing: .12em; color: var(--primary); }
+    .doc__title { font-size: var(--h1); margin-block: .2em .3em; }
+    .doc__lede { font-size: var(--text-l); color: var(--text-color); max-inline-size: 46ch; }
+
+    .step { display: grid; grid-template-columns: 2.6rem 1fr; gap: var(--space-m); padding-block: var(--space-l); border-block-start: 1px solid color-mix(in srgb, var(--neutral) 14%, transparent); }
+    .step__n { display: grid; place-items: center; inline-size: 2.6rem; block-size: 2.6rem; border-radius: 50%; background: var(--primary); color: #fff; font-family: var(--heading-font-family); font-weight: 600; }
+    .step__body { display: flex; flex-direction: column; gap: var(--space-s); }
+    .step__title { font-size: var(--h4); color: var(--heading-color); }
+    .step__body p { color: var(--text-color); }
+    .step__body ul { color: var(--text-color); padding-inline-start: 1.1em; display: flex; flex-direction: column; gap: .35em; }
+    .code { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: .82rem; color: var(--primary-dark); background: color-mix(in srgb, var(--primary) 9%, transparent); padding: .12em .42em; border-radius: 5px; }
+    .codeblock { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .78rem; line-height: 1.6; color: var(--base); background: var(--base-ultra-light); border: 1px solid color-mix(in srgb, var(--neutral) 16%, transparent); border-radius: var(--radius); padding: var(--space-s) var(--space-m); overflow-x: auto; white-space: pre; }
+    .doc h2.doc__h2 { font-size: var(--h2); margin-block: var(--space-xl) var(--space-m); }
+
+    .vt { inline-size: 100%; border-collapse: collapse; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .74rem; }
+    .vt th, .vt td { padding: .35em .55em; text-align: start; border-block-end: 1px solid color-mix(in srgb, var(--neutral) 14%, transparent); white-space: nowrap; }
+    .vt thead th { color: var(--heading-color); font-weight: 600; border-block-end-width: 1.5px; }
+    .vt td.num { text-align: end; color: var(--text-color); }
+    .swatch-mini { display: inline-block; inline-size: .85em; block-size: .85em; border-radius: 3px; vertical-align: -1px; margin-inline-end: .5em; border: 1px solid color-mix(in srgb, var(--neutral) 30%, transparent); }
+    .palgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: var(--space-m); margin-block-start: var(--space-m); }
+    .palcard { border: 1px solid color-mix(in srgb, var(--neutral) 16%, transparent); border-radius: var(--radius); padding: var(--space-s) var(--space-m) var(--space-m); background: var(--bg-ultra-light); }
+    .palcard__h { display: flex; align-items: center; gap: .5em; font-family: var(--heading-font-family); font-weight: 600; color: var(--heading-color); font-size: .85rem; margin-block-end: .6em; }
+    .palcard__hex { margin-inline-start: auto; font-family: ui-monospace, monospace; font-size: .72rem; color: var(--text-color); }
+  </style>
+</helmet>
+
+<div>
+  <header class="sg-topbar">
+    <span class="sg-topbar__brand"><span class="sg-topbar__mark">◆</span> Design System</span>
+    <nav class="sg-topbar__links">
+      <a class="sg-topbar__link" href="Overview.dc.html">Overview</a>
+      <a class="sg-topbar__link" href="Design System.dc.html">Styleguide</a>
+      <a class="sg-topbar__link sg-topbar__link--active" href="ACSS Setup Guide.dc.html">ACSS Setup</a>
+      <a class="sg-topbar__link" href="ACSS Dashboard Values.dc.html">Dashboard</a>
+      <a class="sg-topbar__link" href="Etch Snippets.dc.html">Etch Snippets</a>
+    </nav>
+  </header>
+
+  <article class="doc" data-screen-label="ACSS Setup">
+    <div class="doc__hero">
+      <span class="doc__kicker">DASHBOARD SETUP</span>
+      <h1 class="doc__title">Configuring Automatic.css for Etch</h1>
+      <p class="doc__lede">Get ACSS installed, licensed, and tuned so the generated <span class="code">automatic.css</span> matches the tokens this design system expects.</p>
+      <div class="cluster" style="margin-block-start: var(--space-m)">
+        <span class="badge badge--soft badge--pill">ACSS 4.x</span>
+        <span class="badge badge--soft badge--pill">Etch · zero-config</span>
+        <span class="badge badge--success badge--soft badge--pill">Self-hosted</span>
+      </div>
+    </div>
+
+    <div class="alert alert--info" style="margin-block-end: var(--space-l)">
+      <span class="alert__icon">ℹ</span>
+      <div class="alert__body">
+        <span class="alert__title">Two plugins, one workflow</span>
+        <span class="alert__text">Install <strong>Etch</strong> and <strong>Automatic.css</strong>. Per the ACSS docs, ACSS works in Etch with zero configuration — no compatibility toggles needed.</span>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step__n">1</div>
+      <div class="step__body">
+        <h2 class="step__title">Install &amp; activate the plugin</h2>
+        <p>In WordPress: <span class="code">Plugins → Add New → Upload Plugin</span>, choose the ACSS <span class="code">.zip</span>, install and activate. A new <span class="code">Automatic.css</span> item appears in the admin sidebar.</p>
+        <p>Do the same for the Etch plugin.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step__n">2</div>
+      <div class="step__body">
+        <h2 class="step__title">Enter your license key</h2>
+        <p>Open <span class="code">Automatic.css → License</span> and paste the key from your account.</p>
+        <div class="alert alert--warning">
+          <span class="alert__icon">!</span>
+          <div class="alert__body"><span class="alert__title">Pick the right key</span><span class="alert__text">Use the key literally named <span class="code">–Automatic.css</span> — not the bundle key or the plan-named key (it's usually second in the list).</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step__n">3</div>
+      <div class="step__body">
+        <h2 class="step__title">Set website width</h2>
+        <p>ACSS&nbsp;v4 is <strong>breakpoint-free</strong> — there is no breakpoints panel. Under <span class="code">Layout → Website Dimensions</span> set just two fields. <strong>Enter everything in px</strong> — ACSS converts to rem in the generated stylesheet. This system uses:</p>
+        <div class="codeblock">Content Width   1200px      → --content-width: 75rem   (max line length)
+Minimum Width    360px      → bottom of the fluid clamp() range</div>
+        <p>You type px; ACSS stores rem (1200px ÷ 16 = 75rem). The panel has just these two fields — <strong>Content Width (1200)</strong> and <strong>Minimum Width (360)</strong>; v4 derives the fluid <span class="code">clamp()</span> range for the type &amp; spacing scales from them. <em>(Gutter is set under Spacing, not here — see step 6. ACSS default Content Width is 1366; this system uses 1200.)</em></p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step__n">4</div>
+      <div class="step__body">
+        <h2 class="step__title">Configure the colour palette</h2>
+        <p>In the <span class="code">Palette</span> panel enter the <strong>base colour as HEX</strong> for each palette. ACSS <strong>converts the HEX to OKLCH</strong> and locks the <strong>hue (H)</strong> from it. The six brand palettes live under <span class="code">Palette → Main Colors</span>, the four status colours under <span class="code">Palette → Semantic Colors</span>. From that single base it generates the whole shade ladder — and for the shades you only ever adjust <strong>L</strong>(ightness) and <strong>C</strong>(hroma); <strong>H stays fixed</strong> (inherited from the base).</p>
+
+        <p style="margin-block-start:var(--space-s)"><strong>① Base colours — enter as HEX</strong> (Main Colors, then Semantic Colors)</p>
+        <table class="vt">
+          <thead><tr><th>Palette</th><th>HEX</th><th>OKLCH (L · C · H)</th></tr></thead>
+          <tbody>
+            <tr><td><span class="swatch-mini" style="background:var(--primary)"></span>Primary</td><td>#0F4BB3</td><td>0.445&nbsp;·&nbsp;0.175&nbsp;·&nbsp;261</td></tr>
+            <tr><td><span class="swatch-mini" style="background:var(--secondary)"></span>Secondary</td><td>#9D6400</td><td>0.552&nbsp;·&nbsp;0.125&nbsp;·&nbsp;72.7</td></tr>
+            <tr><td><span class="swatch-mini" style="background:var(--tertiary)"></span>Tertiary</td><td>#87A330</td><td>0.672&nbsp;·&nbsp;0.142&nbsp;·&nbsp;122.2</td></tr>
+            <tr><td><span class="swatch-mini" style="background:var(--accent)"></span>Accent</td><td>#BCC8A2</td><td>0.814&nbsp;·&nbsp;0.053&nbsp;·&nbsp;122</td></tr>
+            <tr><td><span class="swatch-mini" style="background:var(--base)"></span>Base</td><td>#1A2320</td><td>0.246&nbsp;·&nbsp;0.014&nbsp;·&nbsp;172.8</td></tr>
+            <tr><td><span class="swatch-mini" style="background:var(--neutral)"></span>Neutral</td><td>#6B7280</td><td>0.551&nbsp;·&nbsp;0.023&nbsp;·&nbsp;264.4</td></tr>
+            <tr><td colspan="3" style="font-weight:600; color:var(--heading-color); padding-block-start:.6em">↳ Palette → Semantic Colors</td></tr>
+            <tr><td><span class="swatch-mini" style="background:var(--success)"></span>Success</td><td>#26A746</td><td>0.640&nbsp;·&nbsp;0.175&nbsp;·&nbsp;147</td></tr>
+            <tr><td><span class="swatch-mini" style="background:var(--warning)"></span>Warning</td><td>#FFC108</td><td>0.844&nbsp;·&nbsp;0.172&nbsp;·&nbsp;85</td></tr>
+            <tr><td><span class="swatch-mini" style="background:var(--info)"></span>Info</td><td>#18A2B8</td><td>0.655&nbsp;·&nbsp;0.110&nbsp;·&nbsp;212</td></tr>
+            <tr><td><span class="swatch-mini" style="background:var(--danger)"></span>Danger</td><td>#DC3546</td><td>0.592&nbsp;·&nbsp;0.202&nbsp;·&nbsp;21</td></tr>
+          </tbody>
+        </table>
+        <p class="step__body" style="font-size:var(--text-s); color:var(--text-color); margin-block-start:.6em">Fixed: <span class="code">--white #FFFFFF</span> · <span class="code">--black #000000</span>. Page background <span class="code">--body-bg #F7F5F1</span> is just a reference — adjust it anytime.</p>
+
+        <p style="margin-block-start:var(--space-m)"><strong>② Shades — L &amp; C per step</strong> (hue = the base hue above). The lightness stops are shared across all palettes: <span class="code">ultra-light 0.95</span> · <span class="code">light 0.85</span> · <span class="code">semi-light 0.65</span> · <span class="code">semi-dark 0.35</span> · <span class="code">dark 0.25</span> · <span class="code">ultra-dark 0.10</span>. Chroma is what differs:</p>
+
+        <div class="palgrid">
+          <div class="palcard">
+            <div class="palcard__h"><span class="swatch-mini" style="background:var(--primary)"></span>Primary<span class="palcard__hex">H 261</span></div>
+            <table class="vt"><thead><tr><th>Shade</th><th class="num">L</th><th class="num">C</th></tr></thead><tbody>
+              <tr><td><span class="swatch-mini" style="background:var(--primary-ultra-light)"></span>ultra-light</td><td class="num">0.95</td><td class="num">0.026</td></tr>
+              <tr><td><span class="swatch-mini" style="background:var(--primary-light)"></span>light</td><td class="num">0.85</td><td class="num">0.081</td></tr>
+              <tr><td><span class="swatch-mini" style="background:var(--primary-semi-light)"></span>semi-light</td><td class="num">0.65</td><td class="num">0.175</td></tr>
+              <tr><td><span class="swatch-mini" style="background:var(--primary)"></span>base</td><td class="num">0.445</td><td class="num">0.175</td></tr>
+              <tr><td><span class="swatch-mini" style="background:var(--primary-hover)"></span>hover</td><td class="num">0.512</td><td class="num">0.175</td></tr>
+              <tr><td><span class="swatch-mini" style="background:var(--primary-semi-dark)"></span>semi-dark</td><td class="num">0.35</td><td class="num">0.175</td></tr>
+              <tr><td><span class="swatch-mini" style="background:var(--primary-dark)"></span>dark</td><td class="num">0.25</td><td class="num">0.135</td></tr>
+              <tr><td><span class="swatch-mini" style="background:var(--primary-ultra-dark)"></span>ultra-dark</td><td class="num">0.10</td><td class="num">0.054</td></tr>
+            </tbody></table>
+          </div>
+
+          <div class="palcard">
+            <div class="palcard__h"><span class="swatch-mini" style="background:var(--secondary)"></span>Secondary<span class="palcard__hex">H 72.7</span></div>
+            <table class="vt"><thead><tr><th>Shade</th><th class="num">L</th><th class="num">C</th></tr></thead><tbody>
+              <tr><td><span class="swatch-mini" style="background:var(--secondary-ultra-light)"></span>ultra-light</td><td class="num">0.95</td><td class="num">0.048</td></tr>
+              <tr><td><span class="swatch-mini" style="background:var(--secondary-light)"></span>light</td><td class="num">0.85</td><td class="num">0.125</td></tr>
+              <tr><td><span class="swatch-mini" style="background:var(--secondary-semi-light)"></span>semi-light</td><td class="num">0.65</td><td class="num">0.125</td></tr>
+              <tr><td><span class="swatch-mini" style="background:var(--secondary)"></span>base</td><td class="num">0.552</td><td class="num">0.125</td></tr>
+              <tr><td><span class="swatch-mini" style="background:var(--secondary-hover)"></span>hover</td><td class="num">0.634</td><td class="num">0.125</td></tr>
+              <tr><td><span class="swatch-mini" style="background:var(--secondary-semi-dark)"></span>semi-dark</td><td class="num">0.35</td><td class="num">0.086</td></tr>
+              <tr><td><span class="swatch-mini" style="background:var(--secondary-dark)"></span>dark</td><td class="num">0.25</td><td class="num">0.061</td></tr>
+              <tr><td><span class="swatch-mini" style="background:var(--secondary-ultra-dark)"></span>ultra-dark</td><td class="num">0.10</td><td class="num">0.024</td></tr>
+            </tbody></table>
+          </div>
+
+          <div class="palcard">
+            <div class="palcard__h"><span class="swatch-mini" style="background:var(--tertiary)"></span>Tertiary<span class="palcard__hex">H 122.2</span></div>
+            <table class="vt"><thead><tr><th>Shade</th><th class="num">L</th><th class="num">C</th></tr></thead><tbody>
+              <tr><td><span class="swatch-mini" style="background:var(--tertiary-ultra-light)"></span>ultra-light</td><td class="num">0.95</td><td class="num">0.142</td></tr>
+              <tr><td><span class="swatch-mini" style="background:var(--tertiary-light)"></span>light</td><td class="num">0.85</td><td class="num">0.142</td></tr>
+              <tr><td><span class="swatch-mini" style="background:var(--tertiary-semi-light)"></span>semi-light</td><td class="num">0.65</td><td class="num">0.142</td></tr>
+              <tr><td><span class="swatch-mini" style="background:var(--tertiary)"></span>base</td><td class="num">0.672</td><td class="num">0.142</td></tr>
+              <tr><td><span class="swatch-mini" style="background:var(--tertiary-hover)"></span>hover</td><td class="num">0.773</td><td class="num">0.142</td></tr>
+              <tr><td><span class="swatch-mini" style="background:var(--tertiary-semi-dark)"></span>semi-dark</td><td class="num">0.35</td><td class="num">0.099</td></tr>
+              <tr><td><span class="swatch-mini" style="background:var(--tertiary-dark)"></span>dark</td><td class="num">0.25</td><td class="num">0.071</td></tr>
+              <tr><td><span class="swatch-mini" style="background:var(--tertiary-ultra-dark)"></span>ultra-dark</td><td class="num">0.10</td><td class="num">0.028</td></tr>
+            </tbody></table>
+          </div>
+
+          <div class="palcard">
+            <div class="palcard__h"><span class="swatch-mini" style="background:var(--accent)"></span>Accent<span class="palcard__hex">H 122</span></div>
+            <table class="vt"><thead><tr><th>Shade</th><th class="num">L</th><th class="num">C</th></tr></thead><tbody>
+              <tr><td><span class="swatch-mini" style="background:var(--accent-ultra-light)"></span>ultra-light</td><td class="num">0.95</td><td class="num">0.053</td></tr>
+              <tr><td><span class="swatch-mini" style="background:var(--accent-light)"></span>light</td><td class="num">0.85</td><td class="num">0.053</td></tr>
+              <tr><td><span class="swatch-mini" style="background:var(--accent-semi-light)"></span>semi-light</td><td class="num">0.65</td><td class="num">0.053</td></tr>
+              <tr><td><span class="swatch-mini" style="background:var(--accent)"></span>base</td><td class="num">0.814</td><td class="num">0.053</td></tr>
+              <tr><td><span class="swatch-mini" style="background:var(--accent-hover)"></span>hover</td><td class="num">0.748</td><td class="num">0.053</td></tr>
+              <tr><td><span class="swatch-mini" style="background:var(--accent-semi-dark)"></span>semi-dark</td><td class="num">0.35</td><td class="num">0.053</td></tr>
+              <tr><td><span class="swatch-mini" style="background:var(--accent-dark)"></span>dark</td><td class="num">0.25</td><td class="num">0.053</td></tr>
+              <tr><td><span class="swatch-mini" style="background:var(--accent-ultra-dark)"></span>ultra-dark</td><td class="num">0.10</td><td class="num">0.028</td></tr>
+            </tbody></table>
+          </div>
+
+          <div class="palcard">
+            <div class="palcard__h"><span class="swatch-mini" style="background:var(--base)"></span>Base<span class="palcard__hex">H 172.8</span></div>
+            <table class="vt"><thead><tr><th>Shade</th><th class="num">L</th><th class="num">C</th></tr></thead><tbody>
+              <tr><td><span class="swatch-mini" style="background:var(--base-ultra-light)"></span>ultra-light</td><td class="num">0.95</td><td class="num">0.014</td></tr>
+              <tr><td><span class="swatch-mini" style="background:var(--base-light)"></span>light</td><td class="num">0.85</td><td class="num">0.014</td></tr>
+              <tr><td><span class="swatch-mini" style="background:var(--base-semi-light)"></span>semi-light</td><td class="num">0.65</td><td class="num">0.014</td></tr>
+              <tr><td><span class="swatch-mini" style="background:var(--base)"></span>base</td><td class="num">0.246</td><td class="num">0.014</td></tr>
+              <tr><td><span class="swatch-mini" style="background:var(--base-hover)"></span>hover</td><td class="num">0.283</td><td class="num">0.014</td></tr>
+              <tr><td><span class="swatch-mini" style="background:var(--base-semi-dark)"></span>semi-dark</td><td class="num">0.35</td><td class="num">0.014</td></tr>
+              <tr><td><span class="swatch-mini" style="background:var(--base-dark)"></span>dark</td><td class="num">0.25</td><td class="num">0.014</td></tr>
+              <tr><td><span class="swatch-mini" style="background:var(--base-ultra-dark)"></span>ultra-dark</td><td class="num">0.10</td><td class="num">0.014</td></tr>
+            </tbody></table>
+          </div>
+
+          <div class="palcard">
+            <div class="palcard__h"><span class="swatch-mini" style="background:var(--neutral)"></span>Neutral<span class="palcard__hex">H 264.4</span></div>
+            <table class="vt"><thead><tr><th>Shade</th><th class="num">L</th><th class="num">C</th></tr></thead><tbody>
+              <tr><td><span class="swatch-mini" style="background:var(--neutral-ultra-light)"></span>ultra-light</td><td class="num">0.95</td><td class="num">0.023</td></tr>
+              <tr><td><span class="swatch-mini" style="background:var(--neutral-light)"></span>light</td><td class="num">0.85</td><td class="num">0.023</td></tr>
+              <tr><td><span class="swatch-mini" style="background:var(--neutral-semi-light)"></span>semi-light</td><td class="num">0.65</td><td class="num">0.023</td></tr>
+              <tr><td><span class="swatch-mini" style="background:var(--neutral)"></span>base</td><td class="num">0.551</td><td class="num">0.023</td></tr>
+              <tr><td><span class="swatch-mini" style="background:var(--neutral-hover)"></span>hover</td><td class="num">0.634</td><td class="num">0.023</td></tr>
+              <tr><td><span class="swatch-mini" style="background:var(--neutral-semi-dark)"></span>semi-dark</td><td class="num">0.35</td><td class="num">0.023</td></tr>
+              <tr><td><span class="swatch-mini" style="background:var(--neutral-dark)"></span>dark</td><td class="num">0.25</td><td class="num">0.023</td></tr>
+              <tr><td><span class="swatch-mini" style="background:var(--neutral-ultra-dark)"></span>ultra-dark</td><td class="num">0.10</td><td class="num">0.023</td></tr>
+            </tbody></table>
+          </div>
+        </div>
+
+        <div class="alert alert--info" style="margin-block-start:var(--space-m)">
+          <span class="alert__icon">ℹ</span>
+          <div class="alert__body"><span class="alert__title">Why no hue per shade</span><span class="alert__text">A shade is the same colour at a different lightness/chroma — its hue is locked to the base. So you only adjust L &amp; C; ACSS keeps H constant down each column.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step__n">5</div>
+      <div class="step__body">
+        <h2 class="step__title">Typography</h2>
+        <p>You enter a <strong>Base Size</strong> (Mobile + Desktop, px) and a <strong>Type Scale</strong> (Mobile + Desktop) for headings and for text separately. ACSS computes every step from there across the 360 → 1200px range. Enter these exact values:</p>
+
+        <div class="codeblock">Root Font Size                100 %</div>
+
+        <div class="palgrid" style="grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); margin-block-start:var(--space-m)">
+          <div class="palcard">
+            <div class="palcard__h">Headings panel</div>
+            <table class="vt"><thead><tr><th>Field</th><th class="num">Mobile</th><th class="num">Desktop</th></tr></thead><tbody>
+              <tr><td>Base Heading Size</td><td class="num">20px</td><td class="num">24px</td></tr>
+              <tr><td>Type Scale</td><td class="num">1.25</td><td class="num">1.25</td></tr>
+            </tbody></table>
+            <p class="step__body" style="font-size:var(--text-xs); color:var(--text-color); margin-block-start:.55em">Base = H4; the scale steps up to H1. Defaults: Color <span class="code">--text-dark</span> · Line Height <span class="code">calc(4px + 2ex)</span> · Weight <span class="code">500</span> · Text Wrap <span class="code">Pretty</span>. H5/H6 are pinned to the small text sizes (see override table).</p>
+          </div>
+          <div class="palcard">
+            <div class="palcard__h">Text panel</div>
+            <table class="vt"><thead><tr><th>Field</th><th class="num">Mobile</th><th class="num">Desktop</th></tr></thead><tbody>
+              <tr><td>Base Text Size</td><td class="num">16px</td><td class="num">17px</td></tr>
+              <tr><td>Type Scale</td><td class="num">1.2</td><td class="num">1.2</td></tr>
+            </tbody></table>
+            <p class="step__body" style="font-size:var(--text-xs); color:var(--text-color); margin-block-start:.55em">Defaults: Color <span class="code">--text-dark-muted</span> · Line Height <span class="code">calc(6px + 2ex)</span> · Weight <span class="code">400</span> · Max-Width <span class="code">100%</span> · Text Wrap <span class="code">Pretty</span>.</p>
+          </div>
+        </div>
+
+        <div class="alert alert--warning" style="margin-block-start:var(--space-m)">
+          <span class="alert__icon">!</span>
+          <div class="alert__body"><span class="alert__title">The default panel shows different numbers</span><span class="alert__text">ACSS ships a demo config (Overused Grotesk, Text 14/17 @ 1.333). Overwrite it with the values above — they are what this design system is built on.</span></div>
+        </div>
+
+        <p style="margin-block-start:var(--space-l)"><strong>Use the formula first.</strong> The Base Size + Type Scale above should produce these sizes on their own — leave the override fields empty. Only reach for a per-size <span class="code">Font Size Override</span> (Mobile / Desktop, px) when the formula can't land on a specific target value (e.g. a rounded S / XS). Reference targets:</p>
+
+        <div class="palgrid" style="grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr))">
+          <div class="palcard">
+            <div class="palcard__h">Headings — override (px)</div>
+            <table class="vt"><thead><tr><th>Size</th><th class="num">Mobile</th><th class="num">Desktop</th></tr></thead><tbody>
+              <tr><td>H1</td><td class="num">39.1</td><td class="num">46.9</td></tr>
+              <tr><td>H2</td><td class="num">31.3</td><td class="num">37.5</td></tr>
+              <tr><td>H3</td><td class="num">25</td><td class="num">30</td></tr>
+              <tr><td>H4</td><td class="num">20</td><td class="num">24</td></tr>
+              <tr><td>H5</td><td class="num">14</td><td class="num">15</td></tr>
+              <tr><td>H6</td><td class="num">13</td><td class="num">14</td></tr>
+            </tbody></table>
+          </div>
+          <div class="palcard">
+            <div class="palcard__h">Text — override (px)</div>
+            <table class="vt"><thead><tr><th>Size</th><th class="num">Mobile</th><th class="num">Desktop</th></tr></thead><tbody>
+              <tr><td>2XL <em>(var <span class="code">--text-xxl</span>)</em></td><td class="num">27.6</td><td class="num">29.4</td></tr>
+              <tr><td>XL</td><td class="num">23</td><td class="num">24.5</td></tr>
+              <tr><td>L</td><td class="num">19.2</td><td class="num">20.4</td></tr>
+              <tr><td>M <em>(base)</em></td><td class="num">16</td><td class="num">17</td></tr>
+              <tr><td>S</td><td class="num">14</td><td class="num">15</td></tr>
+              <tr><td>XS</td><td class="num">13</td><td class="num">14</td></tr>
+            </tbody></table>
+          </div>
+        </div>
+        <p class="step__body" style="font-size:var(--text-s); color:var(--text-color); margin-block-start:.6em">Computed at root 16px, Mobile = 360px, Desktop = 1200px.</p>
+
+        <p style="margin-block-start:var(--space-m)"><strong>Fonts (DSGVO):</strong> host locally and reference them — never load Google Fonts at runtime. The Font Family fields (Headings + Text) take the brand faces; this system's reference pairing (heading = Clash Grotesk, body = system stack) lives in <span class="code">fonts.css</span> and is swapped with two custom-property changes.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step__n">6</div>
+      <div class="step__body">
+        <h2 class="step__title">Spacing &amp; section rhythm</h2>
+        <p>Under <span class="code">Spacing → Standard Spacing</span> set <strong>Base Spacing</strong> and the <strong>Base Scale</strong> (mobile / desktop) — ACSS generates the whole <span class="code">--space-*</span> and <span class="code">--section-space-*</span> ladder from those, fluidly between Minimum Width and Content Width. Under <span class="code">Spacing → Section Spacing</span> set the <strong>Gutter</strong> (16 → 80px). These power the <span class="code">.section--*</span> padding utilities and all component gaps.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step__n">7</div>
+      <div class="step__body">
+        <h2 class="step__title">Colour scheme (light / dark)</h2>
+        <p>Two complementary v4 mechanisms:</p>
+        <p style="margin-block-start:var(--space-s)"><strong>① Contextual backgrounds</strong> — ACSS resolves text, heading, link and button colours <em>contextually</em> from the background utility on a section (<span class="code">.bg--ultra-light</span> … <span class="code">.bg--ultra-dark</span>), via Color Assignments. Same markup adapts either way. This system uses:</p>
+        <div class="codeblock">Backgrounds        Body #F7F5F1 · Ultra-Light/Light/Dark/Ultra-Dark = Neutral shades
+Base               Heading = Base(dark) · Text = Neutral·dark · Link = Primary / Primary-hover
+Light relationship Heading+Text = dark   · Button = Primary · Icon = light
+Dark  relationship Heading+Text = light  · Button = Primary · Icon = dark</div>
+        <p style="margin-block-start:var(--space-s)"><strong>② System light/dark scheme</strong> — under <span class="code">Color Scheme</span> turn on <strong>Enable Color Scheme Support</strong> (the palette is then emitted with <span class="code">light-dark()</span> and shades auto-invert), pick the <strong>Website Scheme</strong> (<span class="code">light</span> / <span class="code">dark</span> / <span class="code">light dark</span> / <span class="code">normal</span>), and optionally set per-colour Main/Hover dark overrides. Use <span class="code">.scheme--light</span> / <span class="code">.scheme--dark</span> to force a scheme on any subtree, or <strong>Force Scheme</strong> globally. <em>(This reference build ships single-scheme <span class="code">light</span>; enable the above per project for true dark mode.)</em></p>
+        <p style="margin-block-start:var(--space-s)"><strong>③ Optional — Additional Styling → Effects</strong> sets global transition/easing, sticky behaviour and <strong>selection styling</strong> (the text-highlight colour, which can follow the colour scheme). Safe to leave at defaults.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step__n">8</div>
+      <div class="step__body">
+        <h2 class="step__title">Generate &amp; verify</h2>
+        <p>Save the dashboard — ACSS (re)generates <span class="code">automatic.css</span>. Open any page in Etch; sections and containers receive their <span class="code">data-etch-element</span> attributes and ACSS styling applies automatically.</p>
+        <div class="alert alert--success">
+          <span class="alert__icon">✓</span>
+          <div class="alert__body"><span class="alert__title">Done</span><span class="alert__text">Paste <span class="code">components.css</span> into Etch's global custom CSS. It references the ACSS tokens you just configured — nothing else to wire up.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="doc__h2">How this system maps onto ACSS</h2>
+    <p style="color: var(--text-color); margin-block-end: var(--space-m)">Four CSS sources, loaded in this exact order, mirror the live WordPress + Etch environment:</p>
+    <div class="codeblock">@layer etch-reset      ← WordPress/Etch reset      (lowest)
+@layer etch-defaults   ← Etch defaults
+automatic.css          ← ACSS framework (unlayered) ← overrides layers
+fonts.css              ← font overrides (unlayered)
+components.css         ← our BEM blocks (unlayered) ← final say</div>
+    <p style="color: var(--text-color); margin-block-start: var(--space-m)">Unlayered CSS always wins over <span class="code">@layer</span>-ed CSS, so ACSS and our components override the Etch defaults with no specificity hacks — exactly how it behaves on the live site.</p>
+
+    <div class="alert alert--info" style="margin-block-start: var(--space-l)">
+      <span class="alert__icon">ℹ</span>
+      <div class="alert__body"><span class="alert__title">Migrating from ACSS 3.x?</span><span class="alert__text">Use the ACSS 3 → 4 token converter before relying on the v4 variable names this system uses.</span></div>
+    </div>
+  </article>
+</div>
+</x-dc>
+</body>
+</html>

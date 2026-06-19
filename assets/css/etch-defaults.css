@@ -1,0 +1,16 @@
+/* ==========================================================================
+   Etch Defaults  —  SIMULATES Etch's low-priority default styling for THIS
+   preview only. NOT migrated to the live site — there these defaults come from
+   Etch itself (and section/container get their flex/content-width behaviour
+   from ACSS). It lives in @layer etch-defaults so ACSS + components win.
+   ACSS sets the real body font via --text-font-family (unlayered, wins).
+   ========================================================================== */
+@layer etch-defaults {
+  body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    font-family: system-ui;
+    display: flex;
+    flex-direction: column;
+  }
+}
