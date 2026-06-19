@@ -112,9 +112,8 @@
         <h2 class="step__title">Set website width</h2>
         <p>ACSS&nbsp;v4 is <strong>breakpoint-free</strong> — there is no breakpoints panel. Under <span class="code">Layout → Website Dimensions</span> set just two fields. <strong>Enter everything in px</strong> — ACSS converts to rem in the generated stylesheet. This system uses:</p>
         <div class="codeblock">Content Width   1200px      → --content-width: 75rem   (max line length)
-Minimum Width    360px      → bottom of the fluid clamp() range
-Gutter          16px / 80px → 1rem → 5rem  (fluid)</div>
-        <p>You type px; ACSS stores rem (1200px ÷ 16 = 75rem, 16px = 1rem, 80px = 5rem). v4 derives the fluid <span class="code">clamp()</span> range for the type &amp; spacing scales from these two values — <strong>Minimum Width (360)</strong> and <strong>Content Width (1200)</strong> — so set them here and the values below resolve correctly.</p>
+Minimum Width    360px      → bottom of the fluid clamp() range</div>
+        <p>You type px; ACSS stores rem (1200px ÷ 16 = 75rem). The panel has just these two fields — <strong>Content Width (1200)</strong> and <strong>Minimum Width (360)</strong>; v4 derives the fluid <span class="code">clamp()</span> range for the type &amp; spacing scales from them. <em>(Gutter is set under Spacing, not here — see step 6. ACSS default Content Width is 1366; this system uses 1200.)</em></p>
       </div>
     </div>
 
@@ -137,8 +136,8 @@ Gutter          16px / 80px → 1rem → 5rem  (fluid)</div>
             <tr><td colspan="3" style="font-weight:600; color:var(--heading-color); padding-block-start:.6em">↳ Palette → Semantic Colors</td></tr>
             <tr><td><span class="swatch-mini" style="background:var(--success)"></span>Success</td><td>#26A746</td><td>0.640&nbsp;·&nbsp;0.175&nbsp;·&nbsp;147</td></tr>
             <tr><td><span class="swatch-mini" style="background:var(--warning)"></span>Warning</td><td>#FFC108</td><td>0.844&nbsp;·&nbsp;0.172&nbsp;·&nbsp;85</td></tr>
-            <tr><td><span class="swatch-mini" style="background:var(--danger)"></span>Danger</td><td>#DC3546</td><td>0.592&nbsp;·&nbsp;0.202&nbsp;·&nbsp;21</td></tr>
             <tr><td><span class="swatch-mini" style="background:var(--info)"></span>Info</td><td>#18A2B8</td><td>0.655&nbsp;·&nbsp;0.110&nbsp;·&nbsp;212</td></tr>
+            <tr><td><span class="swatch-mini" style="background:var(--danger)"></span>Danger</td><td>#DC3546</td><td>0.592&nbsp;·&nbsp;0.202&nbsp;·&nbsp;21</td></tr>
           </tbody>
         </table>
         <p class="step__body" style="font-size:var(--text-s); color:var(--text-color); margin-block-start:.6em">Fixed: <span class="code">--white #FFFFFF</span> · <span class="code">--black #000000</span>. Page background <span class="code">--body-bg #F7F5F1</span> is just a reference — adjust it anytime.</p>
@@ -306,7 +305,7 @@ Gutter          16px / 80px → 1rem → 5rem  (fluid)</div>
       <div class="step__n">6</div>
       <div class="step__body">
         <h2 class="step__title">Spacing &amp; section rhythm</h2>
-        <p>Under <span class="code">Spacing</span> set <strong>Base Spacing</strong> and the <strong>Base Scale</strong> (mobile / desktop) — ACSS generates the whole <span class="code">--space-*</span> and <span class="code">--section-space-*</span> ladder from those, fluidly between Minimum Width and Content Width. These power the <span class="code">.section--*</span> padding utilities and all component gaps.</p>
+        <p>Under <span class="code">Spacing → Standard Spacing</span> set <strong>Base Spacing</strong> and the <strong>Base Scale</strong> (mobile / desktop) — ACSS generates the whole <span class="code">--space-*</span> and <span class="code">--section-space-*</span> ladder from those, fluidly between Minimum Width and Content Width. Under <span class="code">Spacing → Section Spacing</span> set the <strong>Gutter</strong> (16 → 80px). These power the <span class="code">.section--*</span> padding utilities and all component gaps.</p>
       </div>
     </div>
 
