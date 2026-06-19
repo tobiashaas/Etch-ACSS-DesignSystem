@@ -23,11 +23,10 @@ owns **colour, type & iconography**. Goal: designs port 1:1 into **Etch (WordPre
 CSS, so ACSS and our components override the Etch defaults with no specificity
 hacks; `brand.css` loads last and re-themes the system purely via `:root` tokens.
 
-Note: the `@layer` wrappers in `etch-reset`/`etch-defaults` are a **local
-preview device** to emulate an Etch-like baseline. Real Etch does NOT use
-`@layer` — it ships its reset/defaults as unlayered `:where()` rules at 0,0,0
-specificity (Etch core principle #6). We don't load these two files on the live
-site; there, Etch's own baseline + ACSS apply. Net cascade effect is the same.
+Note: `etch-reset`/`etch-defaults` only **simulate** the Etch/WordPress baseline
+for the preview — they are **not migrated** to the live site (Etch provides its
+own baseline there). They sit in `@layer` so unlayered ACSS + our components win
+with no specificity hacks.
 
 ## Interactive components
 For **interactive** patterns (nav, accordion/FAQ, dialog/modal, tabs, drawer,

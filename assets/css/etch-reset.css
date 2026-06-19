@@ -1,11 +1,9 @@
 /* ==========================================================================
-   Etch Reset  —  emulates an Etch-like baseline for THIS preview.
-   NOTE: real Etch ships its reset/defaults as unlayered :where() rules at
-   0,0,0 specificity (Etch core principle #6), NOT as CSS @layer. Here we use
-   @layer etch-reset purely as a local preview device so unlayered ACSS +
-   our components win with no specificity hacks — same net effect, and we are
-   not loaded on the live Etch site (there Etch's own baseline applies).
-   Layer order is declared here because this file loads first.
+   Etch Reset  —  SIMULATES the Etch/WordPress baseline for THIS preview only.
+   This file is NOT migrated to the live site — Etch already provides its own
+   reset there, so we never ship it. It lives in @layer etch-reset (the baseline
+   sits beneath everything) so unlayered ACSS + our components win with no
+   specificity hacks. Layer order is declared here because this file loads first.
    ========================================================================== */
 @layer etch-reset, etch-defaults;
 

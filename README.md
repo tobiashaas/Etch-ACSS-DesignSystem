@@ -38,13 +38,12 @@ components.css         ← our BEM blocks (unlayered)
 brand.css              ← brand layer (unlayered) ← final say, :root tokens only
 ```
 
-> The `@layer` wrappers on `etch-reset`/`etch-defaults` are a **local preview
-> device**, not a copy of Etch's mechanism. Real Etch ships its reset/defaults
-> as unlayered `:where()` rules at **0,0,0 specificity** (core principle #6),
-> not as CSS `@layer`. These two files are not loaded on the live site — there,
-> Etch's own baseline + ACSS apply. The net cascade effect is identical.
+> `etch-reset`/`etch-defaults` only **simulate** the Etch/WordPress baseline so
+> the preview matches the live environment. They are **not migrated** to the
+> live site — Etch provides its own baseline there. Keeping them in `@layer`
+> lets unlayered ACSS + our components win with no specificity hacks.
 
-Unlayered CSS always beats `@layer`-ed CSS, so ACSS and our components override the Etch defaults with **no specificity hacks** — the same net cascade result as the live site (where Etch's `:where()` 0,0,0 baseline is what ACSS + components override).
+Unlayered CSS always beats `@layer`-ed CSS, so ACSS and our components override the simulated Etch defaults with **no specificity hacks** — the same net cascade result you get on the live site.
 
 ---
 
