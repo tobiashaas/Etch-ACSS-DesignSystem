@@ -125,6 +125,7 @@
     <div data-view="home">
       <div class="nav">
         <div class="nav__row click" data-go="colors"><span class="nav__ic">◐</span><div><div class="nav__t">Colors</div><div class="nav__s">Palette &amp; shades</div></div><span class="nav__chev">›</span></div>
+        <div class="nav__row click" data-go="assign"><span class="nav__ic">◑</span><div><div class="nav__t">Color Assignments</div><div class="nav__s">Backgrounds &amp; relationships</div></div><span class="nav__chev">›</span></div>
         <div class="nav__row click" data-go="typography"><span class="nav__ic">Aa</span><div><div class="nav__t">Typography</div><div class="nav__s">Headings &amp; text</div></div><span class="nav__chev">›</span></div>
         <div class="nav__row click" data-go="spacing"><span class="nav__ic">⇿</span><div><div class="nav__t">Spacing</div><div class="nav__s">Spacing &amp; sections</div></div><span class="nav__chev">›</span></div>
         <div class="nav__row dis"><span class="nav__ic">▭</span><div><div class="nav__t">Buttons</div><div class="nav__s">Configured in framework</div></div></div>
@@ -161,6 +162,38 @@
         <p class="note">L stops are global; enter each palette's base hex — hue locks per column. Full L/C tables for every palette are in the Setup Guide.</p>
       </div>
       <p class="note">Fixed: --white #FFFFFF · --black #000000. Page bg --body-bg #F7F5F1 (adjustable).</p>
+    </div>
+
+    <!-- ================= COLOR ASSIGNMENTS ================= -->
+    <div data-view="assign" hidden>
+      <div class="f__l" style="margin-block-end:8px">Backgrounds <span class="f__cap">Color Assignments → Backgrounds</span></div>
+      <div class="colr"><span class="sw" style="background:#F7F5F1"></span><span class="nm">Website (Body)</span><span class="hx">#F7F5F1</span></div>
+      <div class="f"><div class="f__l">Ultra Light</div><div class="i">Neutral · Ultra Light</div></div>
+      <div class="f"><div class="f__l">Light</div><div class="i">Neutral · Light</div></div>
+      <div class="f"><div class="f__l">Dark</div><div class="i">Neutral · Dark</div></div>
+      <div class="f"><div class="f__l">Ultra Dark</div><div class="i">Neutral · Ultra Dark</div></div>
+
+      <div class="sub">
+        <h4>Base text &amp; links</h4>
+        <div class="f"><div class="f__l">Heading Color</div><div class="i">Base · Dark&nbsp;&nbsp;(--text-dark)</div></div>
+        <div class="f"><div class="f__l">Text Color</div><div class="i">Neutral · Dark&nbsp;&nbsp;(--text-dark-muted)</div></div>
+        <div class="f"><div class="f__l">Link / Hover</div><div class="i">Primary / Primary Hover</div></div>
+      </div>
+
+      <div class="sub">
+        <h4>Light Relationships <span class="f__cap">on .bg--light / .bg--ultra-light</span></h4>
+        <div class="f"><div class="f__l">Heading / Text</div><div class="i">Dark (--text-dark)</div></div>
+        <div class="f"><div class="f__l">Button</div><div class="i">Primary</div></div>
+        <div class="f"><div class="f__l">Icon</div><div class="i">Light</div></div>
+      </div>
+
+      <div class="sub">
+        <h4>Dark Relationships <span class="f__cap">on .bg--dark / .bg--ultra-dark</span></h4>
+        <div class="f"><div class="f__l">Heading / Text</div><div class="i">Light (--text-light = White)</div></div>
+        <div class="f"><div class="f__l">Button</div><div class="i">Primary</div></div>
+        <div class="f"><div class="f__l">Icon</div><div class="i">Dark</div></div>
+      </div>
+      <p class="note">These power the contextual <span style="font-family:ui-monospace,monospace">.bg--*</span> system — the same markup adapts light/dark with no extra classes. Enter under <strong>Color Assignments → Backgrounds</strong> and <strong>→ Light / Dark Relationships</strong>.</p>
     </div>
 
     <!-- ================= TYPOGRAPHY ================= -->
@@ -237,7 +270,7 @@ class Component extends DCLogic {
     const $$ = (s, c) => [...(c || root).querySelectorAll(s)];
 
     const panel = $("[data-panel]");
-    const TITLES = { home: ["▦", "Dashboard"], colors: ["◐", "Colors"], typography: ["Aa", "Typography"], spacing: ["⇿", "Spacing"] };
+    const TITLES = { home: ["▦", "Dashboard"], colors: ["◐", "Colors"], assign: ["◑", "Color Assignments"], typography: ["Aa", "Typography"], spacing: ["⇿", "Spacing"] };
 
     const DATA = {
       headings: { baseLabel: "Base Heading Size", base: [20, 24], scale: [1.25, 1.25], family: "Clash Grotesk", colorLabel: "Heading Color", colorVal: "--text-dark", colorSwatch: "var(--text-dark)", lh: "calc(4px + 2ex)", weight: "600", extraLabel: "Letter Spacing", extraVal: "0", sizes: { h1: [39.1, 46.9], h2: [31.3, 37.5], h3: [25, 30], h4: [20, 24], h5: [14, 15], h6: [13, 14] } },

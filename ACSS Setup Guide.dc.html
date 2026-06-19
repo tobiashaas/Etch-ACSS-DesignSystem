@@ -315,7 +315,11 @@ Gutter          16px / 80px → 1rem → 5rem  (fluid)</div>
       <div class="step__body">
         <h2 class="step__title">Colour scheme (light / dark)</h2>
         <p>Two complementary v4 mechanisms:</p>
-        <p style="margin-block-start:var(--space-s)"><strong>① Contextual backgrounds</strong> — ACSS resolves text, heading, link and button colours <em>contextually</em> from the background utility on a section (<span class="code">.bg--ultra-light</span> … <span class="code">.bg--ultra-dark</span>), via Color Assignments → Light / Dark Relationships. Same markup adapts either way.</p>
+        <p style="margin-block-start:var(--space-s)"><strong>① Contextual backgrounds</strong> — ACSS resolves text, heading, link and button colours <em>contextually</em> from the background utility on a section (<span class="code">.bg--ultra-light</span> … <span class="code">.bg--ultra-dark</span>), via Color Assignments. Same markup adapts either way. This system uses:</p>
+        <div class="codeblock">Backgrounds        Body #F7F5F1 · Ultra-Light/Light/Dark/Ultra-Dark = Neutral shades
+Base               Heading = Base(dark) · Text = Neutral·dark · Link = Primary / Primary-hover
+Light relationship Heading+Text = dark   · Button = Primary · Icon = light
+Dark  relationship Heading+Text = light  · Button = Primary · Icon = dark</div>
         <p style="margin-block-start:var(--space-s)"><strong>② System light/dark scheme</strong> — under <span class="code">Color Scheme</span> turn on <strong>Enable Color Scheme Support</strong> (the palette is then emitted with <span class="code">light-dark()</span> and shades auto-invert), pick the <strong>Website Scheme</strong> (<span class="code">light</span> / <span class="code">dark</span> / <span class="code">light dark</span> / <span class="code">normal</span>), and optionally set per-colour Main/Hover dark overrides. Use <span class="code">.scheme--light</span> / <span class="code">.scheme--dark</span> to force a scheme on any subtree, or <strong>Force Scheme</strong> globally. <em>(This reference build ships single-scheme <span class="code">light</span>; enable the above per project for true dark mode.)</em></p>
         <p style="margin-block-start:var(--space-s)"><strong>③ Optional — Additional Styling → Effects</strong> sets global transition/easing, sticky behaviour and <strong>selection styling</strong> (the text-highlight colour, which can follow the colour scheme). Safe to leave at defaults.</p>
       </div>

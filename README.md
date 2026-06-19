@@ -22,10 +22,12 @@ Use this as the standard starting point for every web project, then layer a bran
 
 The live site is built in **Etch for WordPress** with **AutomaticCSS (ACSS) v4** — no TailwindCSS, native nested CSS, BEM naming. This DS is authored to match exactly:
 
-- `assets/css/automatic.css` — full ACSS v4 framework (the generated stylesheet, reference)
-- `assets/css/components.css` — our BEM components (unlayered, no prefix) — paste into Etch global CSS
-- `ACSS Dashboard Values` — the exact palette (HEX) + shade L/C + type/spacing values to enter in the ACSS dashboard
+- `assets/css/automatic.css` — full ACSS v4 framework, **reference / preview-simulation only — NOT migrated**. On the live site ACSS generates it from the dashboard; we reproduce it 1:1 via the dashboard values below.
+- `assets/css/components.css` — our BEM components (unlayered, no prefix) — **paste into Etch global CSS** (this is what actually ships)
+- `ACSS Dashboard Values` — the exact palette (HEX) + shade L/C + **color assignments** + type/spacing values to enter in the ACSS dashboard (the real 1:1 deliverable)
 - `Etch Snippets` — framework-free, paste-into-Etch sections
+
+> **Simulated vs migrated:** `etch-reset.css`, `etch-defaults.css` and `automatic.css` only *simulate* the live environment in this preview — they already exist on the WordPress site (Etch's baseline + ACSS-generated CSS), so they are never migrated. The 1:1 match is achieved by **entering the dashboard values**, not by copying these files. What migrates is `components.css` (+ self-hosted fonts and brand tokens).
 
 ### Load order (emulates an Etch-like baseline)
 
