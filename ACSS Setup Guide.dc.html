@@ -121,7 +121,7 @@ Minimum Width    360px      → bottom of the fluid clamp() range</div>
       <div class="step__n">4</div>
       <div class="step__body">
         <h2 class="step__title">Configure the colour palette</h2>
-        <p>In the <span class="code">Palette</span> panel enter the <strong>base colour</strong> (HEX) for each palette. The six brand palettes live under <span class="code">Palette → Main Colors</span>, the four status colours under <span class="code">Palette → Semantic Colors</span>. ACSS reads each palette's <strong>hue</strong> from its base colour and generates the shades — so for shades you only ever set <strong>L</strong>(ightness) and <strong>C</strong>(hroma); hue is inherited.</p>
+        <p>In the <span class="code">Palette</span> panel enter the <strong>base colour as HEX</strong> for each palette. ACSS <strong>converts the HEX to OKLCH</strong> and locks the <strong>hue (H)</strong> from it. The six brand palettes live under <span class="code">Palette → Main Colors</span>, the four status colours under <span class="code">Palette → Semantic Colors</span>. From that single base it generates the whole shade ladder — and for the shades you only ever adjust <strong>L</strong>(ightness) and <strong>C</strong>(hroma); <strong>H stays fixed</strong> (inherited from the base).</p>
 
         <p style="margin-block-start:var(--space-s)"><strong>① Base colours — enter as HEX</strong> (Main Colors, then Semantic Colors)</p>
         <table class="vt">
